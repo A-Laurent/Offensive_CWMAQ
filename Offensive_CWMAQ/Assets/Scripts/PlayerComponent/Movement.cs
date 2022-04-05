@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
     private bool run = false;
     CharacterController Cc;
     Vector3 Deplacements;
+    public Animator Anim;
 
     //Définition des variables utilisées pour la rotation de la camera 
 
@@ -49,15 +50,17 @@ public class Movement : MonoBehaviour
         else run = false;
 
         if (run)
-        {
+        { 
+            Anim.SetBool("Run", true);
             //Je multiplie simplement la vitesse x et z
             speedX = speedX * RunSpeed;
-            speedZ = speedZ * RunSpeed;
+            speedZ = speedZ * RunSpeed;  
         }
         else
         {
             speedX = speedX * NormalSpeed;
             speedZ = speedZ * NormalSpeed;
+            Anim.SetBool("Run", false);
         }
 
         Deplacements = z * speedZ + x * speedX;
@@ -65,36 +68,49 @@ public class Movement : MonoBehaviour
         //Ma condition pour le saut
         if (Input.GetButton("Jump") && Cc.isGrounded)
         {
+            Anim.SetBool("Jump", true);
             //Je donne un float en deplacement y 
             Deplacements.y = JumpSpeed;
         }
         else
-        {
+        {      
             Deplacements.y = speedY;
         }
 
         if (!Cc.isGrounded)
         {
+            Anim.SetBool("Jump", false);
             //Je rajoute ma gravité a mon CC
             Deplacements.y -= Gravity * Time.deltaTime;
+        }
+
+        if(speedX<0)
+        {
+            Anim.SetBool("WalkLf", true);
+        }
+        else if (speedX > 0)
+        {
+            Anim.SetBool("WalkRt", true);
+        }
+        else if (speedZ < 0)
+        {
+            Anim.SetBool("WalkBk", true);
+        }
+        else if (speedZ > 0)
+        {
+            Anim.SetBool("WalkFr", true);
+        }
+        else
+        {
+            Anim.SetBool("WalkRt", false);
+            Anim.SetBool("WalkLf", false);
+            Anim.SetBool("WalkBk", false);
+            Anim.SetBool("WalkFr", false);
         }
 
         //Définition finale de l'emplacement vers le quelle mon personnage dois aller
         Cc.Move(Deplacements * Time.deltaTime);
 
-        //La rotation de la camera avec une sencibilitée
-        rotationX += -Input.GetAxis("Mouse Y") * Sensivity;
-
-        //Rotation maximum et minimun vers le haut et le bas
-        rotationX = Mathf.Clamp(rotationX, -LimitRotation, LimitRotation);
-
-        //Transformation de la postion de la cam
-        HeadPlayer.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-
-        //Transformation de la ou regarde le personnage 
-        transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * Sensivity, 0);
-
-        //Augementation de la précision
-        //Ray ray = HeadPlayer.ViewportPointToRay(new Vector3(.5f, .5f));
+        transform.rotation = Quaternion.Euler(0,HeadPlayer.gameObject.GetComponent<CameraComp>().Yaxe,0);
     }
 }

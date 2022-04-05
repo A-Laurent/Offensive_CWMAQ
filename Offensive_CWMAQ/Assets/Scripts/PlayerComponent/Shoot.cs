@@ -11,26 +11,34 @@ public class Shoot : MonoBehaviour
     public Camera FpsCam;
     public AudioSource Audiosource;
     public AudioClip Sound;
-
+    public Animator Anim;
     void Update()
     {
         //Condition pour tirer
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire)
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            //Temps entre chaque tire 
-            nextFire = Time.time + FireRate;
-
-            //Définition de la ou le rayon vas partir 
-            Ray rayOrigin = FpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-
-            RaycastHit hit;
-
-            //Création de ray avec une range max
-            if (Physics.Raycast(rayOrigin, out hit, WeaponRange))
+            Anim.SetBool("Shoot", true);
+            if (Time.time > nextFire)
             {
-                //Bruit de coup de feu
-               Audiosource.PlayOneShot(Sound);
+                //Temps entre chaque tire 
+                nextFire = Time.time + FireRate;
+
+                //Définition de la ou le rayon vas partir 
+                Ray rayOrigin = FpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+
+                RaycastHit hit;
+
+                //Création de ray avec une range max
+                if (Physics.Raycast(rayOrigin, out hit, WeaponRange))
+                {
+                    //Bruit de coup de feu
+                    Audiosource.PlayOneShot(Sound);
+                }
             }
+        }
+        else
+        {
+            Anim.SetBool("Shoot", false);
         }
     }
 }

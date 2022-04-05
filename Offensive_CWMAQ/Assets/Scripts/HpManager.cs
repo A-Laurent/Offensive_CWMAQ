@@ -7,20 +7,22 @@ public class HpManager : MonoBehaviour
 {
 
     public int Hp;
-    // Start is called before the first frame update
     void Start()
     {
         Hp = 100;
     }
 
-    // Update is called once per frame
     void Update()
     {
+
+        //This condition allow the player to lose switch scene if the player has no HP left 
+
         if(Hp <= 0 && CompareTag("Player"))
         {
-            Debug.Log("oui");
             SceneManager.LoadScene("EndScene");
         }
+
+        //This condition allow the bot to die if he has not hp left 
 
         if (Hp <= 0 && CompareTag("Bot"))
         {

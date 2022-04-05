@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using BehaviorTree;
 
-public class EnemyBT : MonoBehaviour
+public class EnemyBT : Tree
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override Node SetupTree()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Node root = new CheckIfEnemyInFOV(transform);
+        return root;
     }
 }

@@ -18,4 +18,14 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");        
     }
+
+    public void ReturnMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    public void GoCredits()
+    {
+        SceneManager.LoadScene("CréditsScene");
+    }
 }

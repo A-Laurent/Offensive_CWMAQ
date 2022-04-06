@@ -34,9 +34,10 @@ public class CheckIfEnemyInFOV : Node
         }
         if (enemisAround.Length > _maxTarget)
         {
-            enemisAround.OrderBy(hit => Vector3.Distance(hit.transform.position, _transform.position));
+            enemisAround.OrderBy(hit => Vector3.Distance(hit.transform.position, _transform.position)).ToArray();
         }
 
+        
         List<Transform> enemiesToHit = new List<Transform>();
 
         for (int i = 0; i < _maxTarget; i++)

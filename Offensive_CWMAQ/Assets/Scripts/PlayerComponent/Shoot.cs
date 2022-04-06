@@ -33,7 +33,7 @@ public class Shoot : MonoBehaviour
                     //Shot fire
                     Audiosource.PlayOneShot(Sound);
                     //If it's a bot we kill
-                    if(hit.collider.CompareTag("Enemy"))
+                    if(hit.collider.CompareTag("Bot"))
                     {
                         hit.collider.GetComponent<HpManager>().Hp -= 10;
                     }

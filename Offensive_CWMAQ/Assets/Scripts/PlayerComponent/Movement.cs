@@ -27,6 +27,12 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        Movements();
+    }
+
+    private void Movements()
+    {
+
         //Initializing movement vectors
         Vector3 z = transform.TransformDirection(Vector3.forward);
         Vector3 x = transform.TransformDirection(Vector3.right);
@@ -43,7 +49,7 @@ public class Movement : MonoBehaviour
             Anim.SetBool("WalkFr", false);
             Anim.SetBool("Run", true);
             speedX = speedX * RunSpeed;
-            speedZ = speedZ * RunSpeed;  
+            speedZ = speedZ * RunSpeed;
         }
         else
         {
@@ -63,7 +69,7 @@ public class Movement : MonoBehaviour
             Deplacements.y = JumpSpeed;
         }
         else
-        {      
+        {
             Deplacements.y = speedY;
         }
 
@@ -75,7 +81,7 @@ public class Movement : MonoBehaviour
         }
 
         //Animations
-        if(speedX<0)
+        if (speedX < 0)
         {
             Anim.SetBool("WalkLf", true);
         }
@@ -96,7 +102,7 @@ public class Movement : MonoBehaviour
             else
             {
                 Anim.SetBool("WalkFr", true);
-            }            
+            }
         }
         else
         {
@@ -108,7 +114,5 @@ public class Movement : MonoBehaviour
 
         //Finale define where the player should go
         Cc.Move(Deplacements * Time.deltaTime);
-
-        transform.rotation = Quaternion.Euler(0,HeadPlayer.gameObject.GetComponent<CameraComp>().Yaxe,0);
     }
 }

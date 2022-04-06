@@ -4,41 +4,55 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    //Définition des variables
     public float FireRate = 0.1f;
     private float nextFire;
     public float WeaponRange = 1000f;
-    public Camera FpsCam;
+    public CameraComp CamComp;
+    public Camera TpsCam;
     public AudioSource Audiosource;
     public AudioClip Sound;
     public Animator Anim;
     void Update()
     {
-        //Condition pour tirer
+        RaycastHit hit;
+        //Shoot with Left click
         if (Input.GetKey(KeyCode.Mouse0))
         {
             Anim.SetBool("Shoot", true);
             if (Time.time > nextFire)
             {
-                //Temps entre chaque tire 
+                //Duration between two fire 
                 nextFire = Time.time + FireRate;
 
-                //Définition de la ou le rayon vas partir 
-                Ray rayOrigin = FpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+                //From where the ray with start 
+                Ray rayOrigin = TpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));               
 
-                RaycastHit hit;
-
-                //Création de ray avec une range max
+                //Creation of ray with a max range
                 if (Physics.Raycast(rayOrigin, out hit, WeaponRange))
                 {
-                    //Bruit de coup de feu
+                    //Shot fire
                     Audiosource.PlayOneShot(Sound);
+                    //If it's a bot we kill
+                    if(hit.collider.CompareTag("Enemy"))
+                    {
+                        hit.collider.GetComponent<HpManager>().Hp -= 10;
+                    }
                 }
             }
         }
         else
         {
+            //Animation
             Anim.SetBool("Shoot", false);
+        }
+        //Aiming if we use Right click
+        if(Input.GetKey(KeyCode.Mouse1))
+        {
+            CamComp.GetComponent<CameraComp>().Aiming = true;
+        }
+        else
+        {
+            CamComp.GetComponent<CameraComp>().Aiming = false;
         }
     }
 }

@@ -13,13 +13,11 @@ public class AmmoManager : MonoBehaviour
     public GameObject text;
     public GameObject fillBar;
 
-    // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckPressedTime();
@@ -45,6 +43,8 @@ public class AmmoManager : MonoBehaviour
         text.SetActive(false);
     }
 
+
+    //This function create a Timer that correspond to the pressed Time of E 
     public float CheckPressedTime()
     {
         if (Input.GetKey(KeyCode.E) && IsKeyPressed)
@@ -71,8 +71,6 @@ public class AmmoManager : MonoBehaviour
             IsKeyPressed = true;
         }
 
-        Debug.Log(IsKeyPressed);
-        Debug.Log(Timer);
         return Timer;
     }
 }

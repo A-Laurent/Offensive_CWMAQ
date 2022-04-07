@@ -17,10 +17,11 @@ public class Shoot : MonoBehaviour
         RaycastHit hit;
         //Shoot with Left click
         if (Input.GetKey(KeyCode.Mouse0))
-        {
+        {            
             Anim.SetBool("Shoot", true);
             if (Time.time > nextFire)
             {
+                GetComponent<AmmoComponent>().Ammo -= 1;
                 //Duration between two fire 
                 nextFire = Time.time + FireRate;
 

@@ -14,6 +14,7 @@ public class AmmoComponent : MonoBehaviour
     }
     void Update()
     {
-        
+        if (Ammo <= 0)
+            Ammo = 0;
     }
 }

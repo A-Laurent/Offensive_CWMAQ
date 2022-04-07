@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class AmmoComponent : MonoBehaviour
 {
+
+    //This component create & set the ammo value to 200
+
     public int Ammo;
     void Start()
     {
-        Ammo = 150;
+        Ammo = 200;
+    }
+    void Update()
+    {
+        
     }
 }

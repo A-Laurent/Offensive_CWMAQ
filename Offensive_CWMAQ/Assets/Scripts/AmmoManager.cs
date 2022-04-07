@@ -4,31 +4,73 @@ using UnityEngine;
 
 public class AmmoManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public float Timer;
+    private bool IsKeyPressed;
+
+    private GameObject Player;
+
+    public GameObject text;
+    public GameObject fillBar;
+
     void Start()
     {
-        
+        Player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        CheckPressedTime();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        //If I get the collision with someone who have the component "AmmoCom" (who anybody have)
         if(other.gameObject.GetComponent<AmmoComponent>())
         {
-            //They can press E to pick-up it
-            if(Input.GetKeyDown(KeyCode.E))
-            {
-                if(other.gameObject.GetComponent<AmmoComponent>().Ammo<=200)
+                IsKeyPressed = true;
+                text.SetActive(true);
+                if (other.gameObject.GetComponent<AmmoComponent>().Ammo<=200 && Timer >= 2f)
                 {
-                    Destroy(other.gameObject);
+                    Player.GetComponent<AmmoComponent>().Ammo = 200;
+                    GameObject.Destroy(this.gameObject);
+                }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        fillBar.SetActive(false);
+        text.SetActive(false);
+    }
+
+
+    //This function create a Timer that correspond to the pressed Time of E 
+    public float CheckPressedTime()
+    {
+        if (Input.GetKey(KeyCode.E) && IsKeyPressed)
+        {
+            if (IsKeyPressed)
+            {
+                fillBar.SetActive(true);
+                Timer += 0.01f;
+                IsKeyPressed = false;
+            }
+            else
+            {
+                if ((Time.time - Timer) > 2.0f)
+                {
+                    IsKeyPressed = true;
                 }
             }
         }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            fillBar.SetActive(false);
+            Timer = 0;
+            IsKeyPressed = true;
+        }
+
+        return Timer;
     }
 }

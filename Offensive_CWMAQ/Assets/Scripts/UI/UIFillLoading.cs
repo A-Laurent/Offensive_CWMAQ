@@ -22,7 +22,7 @@ public class UIFillLoading : MonoBehaviour
         if (Ammo == null)
             return;
 
-        TimerFillBar.fillAmount = Ammo.GetComponent<AmmoManager>().Timer / maxTime;
+        TimerFillBar.fillAmount = Ammo.GetComponent<AmmoComponent>().Timer / maxTime;
 
         
     }

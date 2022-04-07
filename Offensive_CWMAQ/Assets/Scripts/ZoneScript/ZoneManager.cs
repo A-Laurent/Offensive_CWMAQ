@@ -48,11 +48,6 @@ public class ZoneManager : MonoBehaviour
 
             foreach (GameObject alive in alivePlayers)
             {
-                if (i > 3)
-                {
-                    i = 3;
-                }
-
                 
                 centerposition += alivePlayers[i].transform.position;
                 i += 1;
@@ -89,5 +84,10 @@ public class ZoneManager : MonoBehaviour
 
         ZoneWall.transform.localScale = new Vector3((radius*0.01f), 1, (radius*0.01f));
         
+    }
+
+    public Vector3 GetCenterZone()
+    {
+        return Vector3.zero;
     }
 }

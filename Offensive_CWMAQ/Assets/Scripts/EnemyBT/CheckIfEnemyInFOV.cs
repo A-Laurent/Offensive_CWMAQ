@@ -8,7 +8,7 @@ using BehaviorTree;
 
 public class CheckIfEnemyInFOV : Node
 {
-    private Transform _transform;
+    private Transform _selfTransform;
     private static int _enemyToGuardLayer = 1 << 6;
     private int _maxTarget = 1;
 
@@ -17,7 +17,7 @@ public class CheckIfEnemyInFOV : Node
     
     public CheckIfEnemyInFOV(Transform transform)
     {
-        _transform = transform;
+        _selfTransform = transform;
     }
 
     public override NodeState Evaluate()
@@ -25,7 +25,7 @@ public class CheckIfEnemyInFOV : Node
         object t = GetData("target");
 
         // The Ai check Around if there are any collider that have the 6th and then put them in the right order the closer the enemy is the higher its place is in the List//
-        Collider[] enemisAround = Physics.OverlapSphere(_transform.position, 40f, _enemyToGuardLayer);
+        Collider[] enemisAround = Physics.OverlapSphere(_selfTransform.position, 40f, _enemyToGuardLayer);
         
         
         if (enemisAround.Length == 0)
@@ -35,7 +35,7 @@ public class CheckIfEnemyInFOV : Node
         }
         if (enemisAround.Length > _maxTarget)
         {
-            enemisAround.OrderBy(hit => Vector3.Distance(hit.transform.position, _transform.position)).ToArray();
+            enemisAround.OrderBy(hit => Vector3.Distance(hit.transform.position, _selfTransform.position)).ToArray();
         }
 
         
@@ -55,12 +55,12 @@ public class CheckIfEnemyInFOV : Node
         }
         //
 
-        origin = new Vector3(_transform.position.x, _transform.position.y + 1f, _transform.position.z);
+        origin = new Vector3(_selfTransform.position.x, _selfTransform.position.y + 1f, _selfTransform.position.z);
         newTargetPos = new Vector3(enemiesToHit[0].position.x, enemiesToHit[0].position.y + 1f, enemiesToHit[0].position.z);
 
         // The AI calculate the deltaposition between him and the nearest enemy and the angle between The AI forward the deltaposition//
-        Vector3 deltaPosition = new Vector3(enemiesToHit[0].position.x - _transform.position.x, enemiesToHit[0].position.y - _transform.position.y, enemiesToHit[0].position.z - _transform.position.z);
-        float angle = Vector3.Angle(_transform.forward, deltaPosition);
+        Vector3 deltaPosition = new Vector3(enemiesToHit[0].position.x - _selfTransform.position.x, enemiesToHit[0].position.y - _selfTransform.position.y, enemiesToHit[0].position.z - _selfTransform.position.z);
+        float angle = Vector3.Angle(_selfTransform.forward, deltaPosition);
         //
        
         // The Ai check if the Raycast hit the enemy only if he is in the FOV an set in the data "target" equal to the transform of the  raycast hit//

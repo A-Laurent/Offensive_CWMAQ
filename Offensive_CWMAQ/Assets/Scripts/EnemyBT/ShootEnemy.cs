@@ -6,16 +6,26 @@ using BehaviorTree;
 
 public class ShootEnemy : Node
 {
-    private float time = 3f;
+    private float time = 0.5f;
     private float timer = 0f;
     private Transform _selfTransform;
     private Animator _selfAnimator;
     private NavMeshAgent _selfAgent;
-    public ShootEnemy(Transform selftransform, Animator animator, NavMeshAgent selfagent)
+
+    private AudioSource _selfAudioSource;
+    private AudioClip shootSound;
+
+    private Vector3 origin = Vector3.zero;
+    private Vector3 newTargetPos = Vector3.zero;
+    public ShootEnemy(Transform selftransform, Animator animator, NavMeshAgent selfagent,AudioClip shootsound,AudioSource selfaudiosource)
     {
         _selfTransform = selftransform;
         _selfAnimator = animator;
         _selfAgent = selfagent;
+        _selfAudioSource = selfaudiosource;
+        shootSound = shootsound;
+
+
     }
 
     public override NodeState Evaluate()
@@ -28,26 +38,29 @@ public class ShootEnemy : Node
             return state;
         }
         //
-        Debug.Log(target);
+
+        origin = new Vector3(_selfTransform.position.x, _selfTransform.position.y + 1f, _selfTransform.position.z);
+        newTargetPos = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
+
+        Vector3 deltaPosition = new Vector3(target.position.x - _selfTransform.position.x, target.position.y - _selfTransform.position.y, target.position.z - _selfTransform.position.z);
+        float angle = Vector3.Angle(_selfTransform.forward, deltaPosition);
+
         //if IA has a target raycast to him in a define range and shoot when timer equel the time to shoot//
         RaycastHit hit;
-        if (Physics.Raycast(_selfTransform.position,target.position - _selfTransform.position, out hit, 30f))
+        if (Physics.Raycast(origin, newTargetPos - origin, out hit, 30f) && angle < 60)
         {
             timer += Time.deltaTime;
             if (hit.transform.CompareTag("Enemy") && timer>= time)
             {
+                _selfAudioSource.PlayOneShot(shootSound);
                 _selfAgent.isStopped = true;
+                _selfAnimator.SetBool("WalkFr", false);
                 _selfAnimator.SetBool("Shoot", true);
+                _selfTransform.LookAt(target.position);
                 hit.transform.GetComponent<HpManager>().Hp -= 10;
                 timer = 0;
             }
-            else
-            {
-                _selfAgent.isStopped = false;
-                _selfAnimator.SetBool("Shoot", false);
-                state = NodeState.FAILURE;
-                return state;
-            }
+            
             
             
         }

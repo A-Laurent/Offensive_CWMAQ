@@ -5,86 +5,83 @@ using UnityEngine.AI;
 
 public class Movement : MonoBehaviour
 {
-    //Définition des variables utilisées pour les mouvements du player
-
+    //Player
     public float NormalSpeed = 5.0f;
     public float RunSpeed = 9.0f;
     public float JumpSpeed = 6.0f;
     public float Gravity = 20.0f;
-    private bool run = false;
     CharacterController Cc;
     Vector3 Deplacements;
     public Animator Anim;
 
-    //Définition des variables utilisées pour la rotation de la camera 
-
-    private float rotationX = 0.0f;
-    public float Sensivity = 10.0f;
-    public float LimitRotation = 60.0f; 
+    //Camera 
     public Camera HeadPlayer;
     
     void Start()
     {
-        //suppréssion du curseur
+        //suppr cursor
         Cursor.visible = false;
-        //Permet a ma variable d'accquérir le component Charactere controller
+        //Get Charactere controler component
         Cc = GetComponent<CharacterController>();
     }
 
     void Update()
     {
-        //Initialisation des deux Vecteurs de mouvement
+        Movements();
+    }
+
+    private void Movements()
+    {
+
+        //Initializing movement vectors
         Vector3 z = transform.TransformDirection(Vector3.forward);
         Vector3 x = transform.TransformDirection(Vector3.right);
 
-        //Les deux axes que je définie dans les parametre de Unity
         float speedZ = Input.GetAxis("Vertical");
         float speedX = Input.GetAxis("Horizontal");
 
-        //Et l'axe y que j'utiliserais pour le saut
+        //The jumping variables
         float speedY = Deplacements.y;
 
-        //Ma condition pour faire un sprint 
+        //The sprint
         if (Input.GetKey(KeyCode.LeftShift))
-            run = true;
-        else run = false;
-
-        if (run)
-        { 
+        {
+            Anim.SetBool("WalkFr", false);
             Anim.SetBool("Run", true);
-            //Je multiplie simplement la vitesse x et z
             speedX = speedX * RunSpeed;
-            speedZ = speedZ * RunSpeed;  
+            speedZ = speedZ * RunSpeed;
         }
         else
         {
             speedX = speedX * NormalSpeed;
             speedZ = speedZ * NormalSpeed;
             Anim.SetBool("Run", false);
+            Anim.SetBool("WalkFr", true);
         }
 
         Deplacements = z * speedZ + x * speedX;
 
-        //Ma condition pour le saut
+        //The jump
         if (Input.GetButton("Jump") && Cc.isGrounded)
         {
+            Anim.SetBool("WalkFr", false);
             Anim.SetBool("Jump", true);
-            //Je donne un float en deplacement y 
             Deplacements.y = JumpSpeed;
         }
         else
-        {      
+        {
             Deplacements.y = speedY;
         }
 
         if (!Cc.isGrounded)
         {
             Anim.SetBool("Jump", false);
-            //Je rajoute ma gravité a mon CC
+            //Adding gravity
             Deplacements.y -= Gravity * Time.deltaTime;
         }
 
-        if(speedX<0)
+        //Animations
+        if (speedX < 0)
         {
             Anim.SetBool("WalkLf", true);
         }
@@ -98,7 +95,14 @@ public class Movement : MonoBehaviour
         }
         else if (speedZ > 0)
         {
-            Anim.SetBool("WalkFr", true);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                Anim.SetBool("WalkFr", false);
+            }
+            else
+            {
+                Anim.SetBool("WalkFr", true);
+            }
         }
         else
         {
@@ -108,9 +112,7 @@ public class Movement : MonoBehaviour
             Anim.SetBool("WalkFr", false);
         }
 
-        //Définition finale de l'emplacement vers le quelle mon personnage dois aller
+        //Finale define where the player should go
         Cc.Move(Deplacements * Time.deltaTime);
-
-        transform.rotation = Quaternion.Euler(0,HeadPlayer.gameObject.GetComponent<CameraComp>().Yaxe,0);
     }
 }

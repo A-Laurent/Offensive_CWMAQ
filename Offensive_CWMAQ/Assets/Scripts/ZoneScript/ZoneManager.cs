@@ -22,10 +22,8 @@ public class ZoneManager : MonoBehaviour
     
     private int i = 0;
 
-    private int j = 0;
 
     private bool DoOnceResearch = true;
-    private bool canCalculate = true;
 
     
 
@@ -81,8 +79,6 @@ public class ZoneManager : MonoBehaviour
             shrinkRadius = radius / 2;
         }
 
-        Debug.Log(radius);
-        Debug.Log(shrinkRadius);
         
 
         if (timeBeforeShrink<=0f)

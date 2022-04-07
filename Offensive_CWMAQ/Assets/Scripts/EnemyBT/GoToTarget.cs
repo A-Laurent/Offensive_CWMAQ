@@ -10,7 +10,9 @@ public class GoToTarget : Node
     private Transform _selfTransform;
     private NavMeshAgent _selfAgent;
 
-    private bool seeEnemy = false;
+    private Vector3 lastTargetpos = Vector3.zero;
+
+   
    public GoToTarget(Transform selftransform, NavMeshAgent selfagent)
    {
         _selfTransform = selftransform;
@@ -36,14 +38,19 @@ public class GoToTarget : Node
         {
             if (hit.transform.CompareTag("Enemy"))
             {
-                seeEnemy = true;
+                lastTargetpos = target.position;
             }
         }
         else
         {
-            seeEnemy = false;
+            _selfAgent.destination = lastTargetpos;
+            if (!_selfAgent.hasPath)
+            {
+                state = NodeState.FAILURE;
+                return state;
+            }
         }
-
+        state = NodeState.RUNNIG;
         return state;
     }
 }

@@ -5,7 +5,9 @@ using UnityEngine;
 public class AmmoComponent : MonoBehaviour
 {
 
-    public float Timer;
+    private float Timer;
+    private float EnemyTimer;
+
     private bool IsInTrigger;
     private bool IsKeyPressed;
 
@@ -54,6 +56,23 @@ public class AmmoComponent : MonoBehaviour
             }
 
         }
+
+        if(other.gameObject.GetComponent<AmmoManager>() && other.gameObject.GetComponent<EnemyBT>())
+        {
+            if (other.gameObject.GetComponent<AmmoManager>().Ammo >= 200)
+                return;
+            if (other.gameObject.GetComponent<AmmoManager>().Ammo < 200)
+            {
+                EnemyTimer += Time.deltaTime;
+
+                if(EnemyTimer > 2f)
+                {
+                    other.gameObject.GetComponent<AmmoManager>().Ammo = 200;
+                    GameObject.Destroy(gameObject);
+                }
+            }
+        }
+  
     }
 
     private void OnTriggerExit(Collider other)

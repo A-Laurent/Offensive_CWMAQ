@@ -19,6 +19,11 @@ public class UIFillLoading : MonoBehaviour
     // Loading fillbar with a timer
     void Update()
     {
+        if (Ammo == null)
+            return;
+
         TimerFillBar.fillAmount = Ammo.GetComponent<AmmoManager>().Timer / maxTime;
+
+        
     }
 }

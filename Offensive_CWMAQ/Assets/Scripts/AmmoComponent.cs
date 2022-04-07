@@ -9,6 +9,8 @@ public class AmmoComponent : MonoBehaviour
     private bool IsInTrigger;
     private bool IsKeyPressed;
 
+    private bool canBeDestroyed = false;
+
     private GameObject Player;
 
     public GameObject text;
@@ -25,12 +27,13 @@ public class AmmoComponent : MonoBehaviour
 
     void Update()
     {
-        CheckPressedTime();
+        if (canBeDestroyed)
+            GameObject.Destroy(gameObject);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.GetComponent<AmmoManager>())
+        if(other.gameObject.GetComponent<AmmoManager>() && other.gameObject.GetComponent<Movement>())
         {
 
 
@@ -45,16 +48,9 @@ public class AmmoComponent : MonoBehaviour
                 fullAmmo.SetActive(false);
                 IsInTrigger = true;
                 text.SetActive(true);
+                CheckPressedTime();
 
-                if (Timer >= 2f)
-                {
-                    Player.GetComponent<AmmoManager>().Ammo = 200;
-
-                    text.SetActive(false);
-                    fillBar.SetActive(false);
-
-                    GameObject.Destroy(this.gameObject);
-                }
+                
             }
 
         }
@@ -78,22 +74,31 @@ public class AmmoComponent : MonoBehaviour
 
 
     //This function create a Timer that correspond to the pressed Time of E 
-    public float CheckPressedTime()
+    public bool CheckPressedTime()
     {
-        if (Input.GetKey(KeyCode.E) && IsInTrigger)
+        if (Input.GetKey(KeyCode.E))
         {
             if (IsKeyPressed)
             {
                 fillBar.SetActive(true);
-                Timer += 0.01f;
+                Timer += Time.deltaTime;
                 IsKeyPressed = false;
             }
             else
             {
-                if ((Time.time - Timer) > 2.0f)
+                if ((Time.time - Timer) > 1.0f)
                 {
                     IsKeyPressed = true;
                 }
+            }
+            if (Timer >= 1f)
+            {
+                Player.GetComponent<AmmoManager>().Ammo = 200;
+
+                text.SetActive(false);
+                fillBar.SetActive(false);
+
+                canBeDestroyed = true;
             }
         }
 
@@ -110,6 +115,6 @@ public class AmmoComponent : MonoBehaviour
             fillBar.SetActive(false);
         }
 
-        return Timer;
+        return canBeDestroyed;
     }
 }

@@ -14,8 +14,8 @@ public class ZoneManager : MonoBehaviour
     
 
 
-    public GameObject a;
-    public GameObject b;
+    public GameObject Interior;
+    public GameObject Exterior;
     private Vector3 centerposition = Vector3.zero;
     
     private GameObject ZoneWall;
@@ -31,8 +31,10 @@ public class ZoneManager : MonoBehaviour
     void Start()
     {
         ZoneWall = GameObject.Find("ZoneWall");
-        a.SetActive(false);
-        b.SetActive(false);
+        // set the zone wall to false //
+        Interior.SetActive(false);
+        Exterior.SetActive(false);
+        //
     }
 
 
@@ -42,10 +44,14 @@ public class ZoneManager : MonoBehaviour
         istimeToSearch += Time.deltaTime;
         timeBeforeShrink -= Time.deltaTime;
 
+
+        // if it's the time to create the first zone and it's not done do it //
         if (istimeToSearch > 2f && DoOnceResearch)
         {
+            // Get the all the players alive//
             GameObject[] alivePlayers = GameObject.FindGameObjectsWithTag("Enemy");
 
+            // for each alive player add their position to the center position then divide the center position by the number of alive player and you get the average position//
             foreach (GameObject alive in alivePlayers)
             {
                 
@@ -53,54 +59,75 @@ public class ZoneManager : MonoBehaviour
                 i += 1;
             }
             centerposition = centerposition / i;
+            //
 
+            // get the empty object placed on the corner of the map //
             GameObject[] CornerMap = GameObject.FindGameObjectsWithTag("Corner");
+            //
 
+            // Organize them by the distance between the center position and the position of each corner //
             CornerMap = CornerMap.OrderBy(hit => Vector3.Distance(hit.transform.position, centerposition)).ToArray<GameObject>();
+            //
 
-
+            // the radius of the zone equal the distance between the furthest corner and the center position//
             radius = Vector3.Distance(CornerMap[3].transform.position, centerposition);
+            //
 
+            //set the next zone radius //
             shrinkRadius = radius / 2;
-            a.SetActive(true);
-            b.SetActive(true);
+            //
+
+            // set active the zone wall //
+            Interior.SetActive(true);
+            Exterior.SetActive(true);
+            //
             DoOnceResearch = false;
         }
+        // set the center of the zone //
         ZoneWall.transform.position = centerposition;
+        //
 
+        // if the radius of the zone is equal to the next radius zone set a new radius to the next zone //
         if (radius-shrinkRadius<=0)
         {
             timeBeforeShrink = 10f;
             shrinkRadius = radius / 2;
         }
-
+        //
         
+
+        // if it's time to shrink the zone //
 
         if (timeBeforeShrink<=0f)
         { 
             radius = Mathf.MoveTowards(radius, shrinkRadius, ((shrinkRadius) / timeToShrink) * Time.deltaTime);
         }
-
+        //
 
         ZoneWall.transform.localScale = new Vector3((radius*0.01f), 1, (radius*0.01f));
         
     }
 
+    // function to get the center of the zone//
     public Vector3 GetCenterZone()
     {
         return ZoneWall.transform.position;
     }
+    //
 
-    public float GetRadiusZone()
+    // function to get the next radius zone //
+    public float GetNextRadiusZone()
     {
         return shrinkRadius;
     }
+    //
 
-
+    // function to get the distance between a position you give to the fonction and the center of the position//
     public float DistZone(Vector3 position)
     {
         return Vector3.Distance(ZoneWall.transform.position, position);
     }
+    //
 
     
 }

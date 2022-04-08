@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class EndComponent : MonoBehaviour
 {
-
-    private GameObject Player;
     private GameObject GameMaster;
 
 
@@ -36,7 +34,6 @@ public class EndComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player");
         GameMaster = GameObject.Find("GameMaster");
 
         //Disable all canvas 
@@ -52,25 +49,25 @@ public class EndComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(GameMaster.GetComponent<GameMaster>().IsPlayerDead)
-        //{
-        //    DiedText.SetActive(true);
-        //    ActiveEnd();            
-        //    ActiveEndButton();
+        if (GameMaster.GetComponent<GameMaster>().IsPlayerDead)
+        {
+            DiedText.SetActive(true);
+            ActiveEnd();
+            ActiveEndButton();
 
-        //    if (ActiveButton)
-        //        Button.SetActive(true);
-        //}
+            if (ActiveButton)
+                Button.SetActive(true);
+        }
 
-        //if(GameMaster.GetComponent<GameMaster>().IsPlayerWin)
-        //{
-        //    WinText.SetActive(true);
-        //    ActiveEnd();
-        //    ActiveEndButton();
+        if (GameMaster.GetComponent<GameMaster>().IsPlayerWin)
+        {
+            WinText.SetActive(true);
+            ActiveEnd();
+            ActiveEndButton();
 
-        //    if (ActiveButton)
-        //        Button.SetActive(true);
-        //}
+            if (ActiveButton)
+                Button.SetActive(true);
+        }
     }
 
     private void ActiveEnd()
@@ -96,7 +93,7 @@ public class EndComponent : MonoBehaviour
 
     private bool ActiveEndButton()
     {
-        Timer = Time.deltaTime;
+        Timer += Time.deltaTime;
 
         if (Timer > 2f)
             ActiveButton = true;

@@ -11,17 +11,17 @@ public class EnemyBT : Tree
 
     protected override Node SetupTree()
     {
-        Node root = new Selector(new List<Node>
-        {
-            new Sequence(new List<Node>
-            {
-                new CheckIfEnemyInFOV(transform),
-                new ShootEnemy(transform, SelfAnimator, SelfAgent,ShootSound,SelfAudioSource),
-            }),
-            new GoToTarget(transform,SelfAgent,SelfAnimator),
+        //Node root = new Selector(new List<Node>
+        //{
+        //    new Sequence(new List<Node>
+        //    {
+        //        new CheckIfEnemyInFOV(transform),
+        //        new ShootEnemy(transform, SelfAnimator, SelfAgent,ShootSound,SelfAudioSource),
+        //    }),
+        //    new GoToTarget(transform,SelfAgent,SelfAnimator),
 
-        });
-
+        //});
+        Node root = new IsInZone(transform);
 
 
         return root;

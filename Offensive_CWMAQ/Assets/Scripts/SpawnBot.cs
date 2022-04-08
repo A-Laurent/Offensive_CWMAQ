@@ -10,9 +10,10 @@ public class SpawnBot : MonoBehaviour
     void Start()
     {
         for (int i = 0;i<100;i++) 
-        { 
+        {   //Random on all the map for where the bot can spawn
             posX = Random.Range(0, 1000);
             posZ = Random.Range(0, 500);
+            //Instantiate them with a prefab
             Instantiate(Botsprefab, new Vector3(posX, 100, posZ), Quaternion.identity);
         }
     }

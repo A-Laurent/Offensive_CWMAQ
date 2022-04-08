@@ -13,6 +13,8 @@ public class Movement : MonoBehaviour
     CharacterController Cc;
     Vector3 Deplacements;
     public Animator Anim;
+    public AudioSource WalkSound;
+    public AudioClip WalkClip;
 
     //Camera 
     public Camera HeadPlayer;
@@ -110,6 +112,17 @@ public class Movement : MonoBehaviour
             Anim.SetBool("WalkLf", false);
             Anim.SetBool("WalkBk", false);
             Anim.SetBool("WalkFr", false);
+        }
+        //Walking sound effect
+        float timer = 0f;
+        timer -= Time.deltaTime;
+        if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+        {
+            if (timer <= 0)
+            {
+                WalkSound.PlayOneShot(WalkClip);
+                timer += 10f;
+            }   
         }
 
         //Finale define where the player should go

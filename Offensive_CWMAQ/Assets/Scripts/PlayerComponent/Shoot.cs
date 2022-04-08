@@ -21,6 +21,8 @@ public class Shoot : MonoBehaviour
             Anim.SetBool("Shoot", true);
             if (Time.time > nextFire)
             {
+
+                GetComponent<AmmoManager>().Ammo -= 1;
                 //Duration between two fire 
                 nextFire = Time.time + FireRate;
 

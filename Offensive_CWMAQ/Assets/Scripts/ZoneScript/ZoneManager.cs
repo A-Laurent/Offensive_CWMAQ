@@ -88,6 +88,19 @@ public class ZoneManager : MonoBehaviour
 
     public Vector3 GetCenterZone()
     {
-        return Vector3.zero;
+        return ZoneWall.transform.position;
     }
+
+    public float GetRadiusZone()
+    {
+        return shrinkRadius;
+    }
+
+
+    public float DistZone(Vector3 position)
+    {
+        return Vector3.Distance(ZoneWall.transform.position, position);
+    }
+
+    
 }

@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4370163708468300882}
   - component: {fileID: 5218482762566223743}
   - component: {fileID: -6284690357805989191}
-  m_Layer: 0
+  - component: {fileID: 588045998453171402}
+  m_Layer: 6
   m_Name: bot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,3 +116,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &588045998453171402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342539313116084479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b85783d504e7c408e4d567c5ce55d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DiedSound: {fileID: 0}
+  DiedClip: {fileID: 0}
+  Hp: 0

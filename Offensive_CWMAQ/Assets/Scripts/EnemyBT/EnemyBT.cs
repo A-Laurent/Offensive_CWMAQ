@@ -6,7 +6,8 @@ public class EnemyBT : Tree
 {
     public UnityEngine.AI.NavMeshAgent SelfAgent;
     public UnityEngine.Animator SelfAnimator;
-
+    public UnityEngine.AudioSource SelfAudioSource;
+    public UnityEngine.AudioClip ShootSound;
 
     protected override Node SetupTree()
     {
@@ -15,10 +16,10 @@ public class EnemyBT : Tree
             new Sequence(new List<Node>
             {
                 new CheckIfEnemyInFOV(transform),
-                new ShootEnemy(transform, SelfAnimator, SelfAgent),
+                new ShootEnemy(transform, SelfAnimator, SelfAgent,ShootSound,SelfAudioSource),
             }),
-            new GoToTarget(transform,SelfAgent),
-        
+            new GoToTarget(transform,SelfAgent,SelfAnimator),
+
         });
 
 

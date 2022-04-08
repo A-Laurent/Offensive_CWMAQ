@@ -57,21 +57,21 @@ public class AmmoComponent : MonoBehaviour
 
         }
 
-        if(other.gameObject.GetComponent<AmmoManager>() && other.gameObject.GetComponent<EnemyBT>())
-        {
-            if (other.gameObject.GetComponent<AmmoManager>().Ammo >= 200)
-                return;
-            if (other.gameObject.GetComponent<AmmoManager>().Ammo < 200)
-            {
-                EnemyTimer += Time.deltaTime;
+        //if(other.gameObject.GetComponent<AmmoManager>() && other.gameObject.GetComponent<EnemyBT>())
+        //{
+        //    if (other.gameObject.GetComponent<AmmoManager>().Ammo >= 200)
+        //        return;
+        //    if (other.gameObject.GetComponent<AmmoManager>().Ammo < 200)
+        //    {
+        //        EnemyTimer += Time.deltaTime;
 
-                if(EnemyTimer > 2f)
-                {
-                    other.gameObject.GetComponent<AmmoManager>().Ammo = 200;
-                    GameObject.Destroy(gameObject);
-                }
-            }
-        }
+        //        if(EnemyTimer > 2f)
+        //        {
+        //            other.gameObject.GetComponent<AmmoManager>().Ammo = 200;
+        //            GameObject.Destroy(gameObject);
+        //        }
+        //    }
+        //}
   
     }
 

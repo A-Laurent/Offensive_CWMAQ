@@ -14,7 +14,7 @@ public class SpawnBot : MonoBehaviour
             posX = Random.Range(0, 1000);
             posZ = Random.Range(0, 500);
             //Instantiate them with a prefab
-            Instantiate(Botsprefab, new Vector3(posX, 100, posZ), Quaternion.identity);
+            Instantiate(Botsprefab, new Vector3(posX, 10, posZ), Quaternion.identity);
         }
     }
 }

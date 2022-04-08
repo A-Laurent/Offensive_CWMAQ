@@ -10,6 +10,9 @@ public class Movement : MonoBehaviour
     public float RunSpeed = 9.0f;
     public float JumpSpeed = 6.0f;
     public float Gravity = 20.0f;
+    private float nextPlay;
+    private float delay;
+    public float delayBetweenStep;
     CharacterController Cc;
     Vector3 Deplacements;
     public Animator Anim;
@@ -25,6 +28,7 @@ public class Movement : MonoBehaviour
         Cursor.visible = false;
         //Get Charactere controler component
         Cc = GetComponent<CharacterController>();
+        delay = delayBetweenStep;
     }
 
     void Update()
@@ -34,7 +38,7 @@ public class Movement : MonoBehaviour
 
     private void Movements()
     {
-
+        
         //Initializing movement vectors
         Vector3 z = transform.TransformDirection(Vector3.forward);
         Vector3 x = transform.TransformDirection(Vector3.right);
@@ -48,6 +52,7 @@ public class Movement : MonoBehaviour
         //The sprint
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            delayBetweenStep = delay / 2;
             Anim.SetBool("WalkFr", false);
             Anim.SetBool("Run", true);
             speedX = speedX * RunSpeed;
@@ -55,6 +60,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            delayBetweenStep = delay;
             speedX = speedX * NormalSpeed;
             speedZ = speedZ * NormalSpeed;
             Anim.SetBool("Run", false);
@@ -113,18 +119,6 @@ public class Movement : MonoBehaviour
             Anim.SetBool("WalkBk", false);
             Anim.SetBool("WalkFr", false);
         }
-        //Walking sound effect
-        float timer = 0f;
-        timer -= Time.deltaTime;
-        if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
-        {
-            if (timer <= 0)
-            {
-                WalkSound.PlayOneShot(WalkClip);
-                timer += 10f;
-            }   
-        }
-
         //Finale define where the player should go
         Cc.Move(Deplacements * Time.deltaTime);
     }

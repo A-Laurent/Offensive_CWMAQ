@@ -33,7 +33,7 @@ public class HpManager : MonoBehaviour
 
         //This condition allow the bot to die if he has not hp left 
         
-        if (Hp <= 0 && transform.CompareTag("Enemy"))
+        if (Hp <= 0 && transform.GetComponent<EnemyBT>())
         {
             GameObject.Destroy(this.gameObject);                     
         }

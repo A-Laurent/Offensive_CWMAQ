@@ -15,6 +15,9 @@ public class MusicManager : MonoBehaviour
     public AudioClip Shootclip;
     private GameObject Player;
     private GameObject GameMaster;
+    public bool PlayShootSound;
+    private float nextFire;
+    private float FireRate = 0.1f;
     private void Start()
     {
         Player = GameObject.Find("Player");
@@ -34,8 +37,11 @@ public class MusicManager : MonoBehaviour
         {
             i = 0;
         }
-        if (Player.GetComponent<Shoot>().PlayShootSound == true&&Time.time > Player.GetComponent<Shoot>().nextFire)
+
+        if (PlayShootSound == true && Time.time >nextFire)
         {
+
+            nextFire = Time.time + FireRate;
             ShootMusic.PlayOneShot(Shootclip);
         }
 

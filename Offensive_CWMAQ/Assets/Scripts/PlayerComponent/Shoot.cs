@@ -11,10 +11,11 @@ public class Shoot : MonoBehaviour
     public Camera TpsCam;
     private GameObject GameMaster;
     public Animator Anim;
-    public bool PlayShootSound;
+    private GameObject MusicManager;
     private void Start()
     {
         GameMaster = GameObject.Find("GameMaster");
+        MusicManager = GameObject.Find("MusicManager");
     }
     void Update()
     {
@@ -28,7 +29,7 @@ public class Shoot : MonoBehaviour
                 if (Time.time > nextFire)
                 {
                     //Shot fire
-                    PlayShootSound = true;
+                    MusicManager.GetComponent<MusicManager>().PlayShootSound = true;
 
                     GetComponent<AmmoManager>().Ammo -= 1;
                     //Duration between two fire 
@@ -56,8 +57,8 @@ public class Shoot : MonoBehaviour
         }
         else
         {
-            
-            PlayShootSound = false;
+
+            MusicManager.GetComponent<MusicManager>().PlayShootSound = false;
             
             //Animation
             Anim.SetBool("Shoot", false);

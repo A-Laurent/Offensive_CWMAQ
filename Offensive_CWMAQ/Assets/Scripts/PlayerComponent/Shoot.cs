@@ -5,14 +5,17 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     public float FireRate = 0.1f;
-    private float nextFire;
+    public float nextFire;
     public float WeaponRange = 1000f;
     public CameraComp CamComp;
     public Camera TpsCam;
     private GameObject GameMaster;
-    public AudioSource Audiosource;
-    public AudioClip Sound;
     public Animator Anim;
+    public bool PlayShootSound;
+    private void Start()
+    {
+        GameMaster = GameObject.Find("GameMaster");
+    }
     void Update()
     {
         RaycastHit hit;
@@ -25,7 +28,7 @@ public class Shoot : MonoBehaviour
                 if (Time.time > nextFire)
                 {
                     //Shot fire
-                    Audiosource.PlayOneShot(Sound);
+                    PlayShootSound = true;
 
                     GetComponent<AmmoManager>().Ammo -= 1;
                     //Duration between two fire 
@@ -48,10 +51,14 @@ public class Shoot : MonoBehaviour
                         }
                     }
                 }
+                
             }
         }
         else
         {
+            
+            PlayShootSound = false;
+            
             //Animation
             Anim.SetBool("Shoot", false);
         }

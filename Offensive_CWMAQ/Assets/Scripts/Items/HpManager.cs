@@ -5,16 +5,13 @@ using UnityEngine;
 
 public class HpManager : MonoBehaviour
 {
-    public AudioSource DiedSound;
-    public AudioClip DiedClip;
-    private GameObject Player;
+    public bool PlayDeadSound;
     private GameObject GameMaster;
     public int Hp;
     int i = 0;
     void Start()
     {
         Hp = 100;
-        Player = GameObject.Find("Player");
         GameMaster = GameObject.Find("GameMaster");
     }
 
@@ -27,13 +24,17 @@ public class HpManager : MonoBehaviour
         {
             //GameMaster.GetComponent<GameMaster>().CanMove = false;
             GameMaster.GetComponent<GameMaster>().IsPlayerDead = true;
-            DiedSound.PlayOneShot(DiedClip);
+            PlayDeadSound = true;
             i ++;
+        }
+        else
+        {
+            PlayDeadSound = false;
         }
 
         //This condition allow the bot to die if he has not hp left 
         
-        if (Hp <= 0 && transform.GetComponent<EnemyBT>())
+        if (Hp <= 0 && transform.GetComponent<HpManager>())
         {
             GameObject.Destroy(this.gameObject);                     
         }

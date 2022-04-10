@@ -8,10 +8,6 @@ public class GameMaster : MonoBehaviour
     public int Kills;
     public bool IsPlayerDead = false;
     public bool IsPlayerWin = false;
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

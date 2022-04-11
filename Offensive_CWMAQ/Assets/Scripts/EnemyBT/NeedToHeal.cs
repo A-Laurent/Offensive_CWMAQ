@@ -8,7 +8,7 @@ public class NeedToHeal : Node
 {
     private Transform _selfTransform;
 
-    private int _layerMedikit = 1 << 8;
+    private int _layerMedikit = 1 << 7;
     public NeedToHeal(Transform selftransform)
     {
         _selfTransform = selftransform;
@@ -16,6 +16,7 @@ public class NeedToHeal : Node
 
     public override NodeState Evaluate()
     {
+        
         object t = GetData("Medikit");
 
         // check if there is collider with the layer medikit, if there is get them //
@@ -38,11 +39,7 @@ public class NeedToHeal : Node
         //
 
         // if the date is null return failure//
-        if (t == null)
-        {
-            state = NodeState.FAILURE;
-            return state;
-        }
+       
         //
 
         // if the AI need to heal set themedikit to data and return success//
@@ -56,7 +53,11 @@ public class NeedToHeal : Node
         }
         //
 
-       
+        if (t == null)
+        {
+            state = NodeState.FAILURE;
+            return state;
+        }
 
         state = NodeState.SUCCESS;
         return state;

@@ -9,25 +9,26 @@ using BehaviorTree;
 public class CheckIfEnemyInFOV : Node
 {
     private Transform _selfTransform;
+    private NavMeshAgent _selfAgent;
     private static int _enemyToGuardLayer = 1 << 6;
     private int _maxTarget = 1;
 
     private Vector3 origin = Vector3.zero;
     private Vector3 newTargetPos = Vector3.zero;
     
-    public CheckIfEnemyInFOV(Transform transform)
+    public CheckIfEnemyInFOV(Transform transform, NavMeshAgent selfagent)
     {
         _selfTransform = transform;
+        _selfAgent = selfagent;
     }
 
     public override NodeState Evaluate()
     {
         object t = GetData("target");
-
+        
         // The Ai check Around if there are any collider that have the 6th and then put them in the right order the closer the enemy is the higher its place is in the List//
-        Collider[] enemisAround = Physics.OverlapSphere(_selfTransform.position, 40f, _enemyToGuardLayer);
-        
-        
+        Collider[] enemisAround = Physics.OverlapSphere(_selfTransform.position, 50f, _enemyToGuardLayer);
+        //Debug.Log(enemisAround.Length);
         if (enemisAround.Length == 0)
         {
             state = NodeState.FAILURE;
@@ -65,15 +66,14 @@ public class CheckIfEnemyInFOV : Node
        
         // The Ai check if the Raycast hit the enemy only if he is in the FOV an set in the data "target" equal to the transform of the  raycast hit//
         RaycastHit hit;
-        if (Physics.Raycast(origin, newTargetPos - origin, out hit, 30f) ) //&& angle < 60.0f
+        if (Physics.Raycast(origin, newTargetPos - origin, out hit, 80f)  && angle < 70.0f)
         {
-            Debug.Log(hit.transform.name);
+            
             if (hit.transform.CompareTag("Enemy"))
             {
                 ClearData("target");
-
-                parent.parent.SetData("target", hit.transform);
-                Debug.Log(GetData("target"));
+                _selfAgent.isStopped = true;
+                parent.parent.parent.SetData("target", hit.transform);
                 state = NodeState.SUCCESS;
                 return state;
             }

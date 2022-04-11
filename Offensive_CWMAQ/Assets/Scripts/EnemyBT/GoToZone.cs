@@ -15,6 +15,7 @@ public class GoToZone : Node
 
     public override NodeState Evaluate()
     {
+       
         Vector3 centerZone = (Vector3)GetData("CenterZone");
 
         if (centerZone == null)
@@ -25,7 +26,7 @@ public class GoToZone : Node
 
 
         _selfAgent.destination = centerZone;
-
+        
 
 
         state = NodeState.RUNNIG;

@@ -61,6 +61,7 @@ public class GoToTarget : Node
             if (Vector3.Distance(_selfAgent.destination, _selfTransform.position) < 1f)
             {
                 _selfAnimator.SetBool("WalkFr", false);
+                ClearData("target");
                 state = NodeState.FAILURE;
                 return state;
             }

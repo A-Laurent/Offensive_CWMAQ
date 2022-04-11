@@ -20,6 +20,7 @@ public class GoToHeal : Node
 
     public override NodeState Evaluate()
     {
+        
         // get the transform of the medikit //
         Transform medikit = (Transform)GetData("Medikit");
         //
@@ -34,6 +35,7 @@ public class GoToHeal : Node
 
         // if there is a medikit then go to its position//
         _selfAgent.destination = medikit.position;
+        _selfAgent.isStopped = false;
         //
 
         //if the AI is close to the destination then it stopppe the time to take the heal //
@@ -51,6 +53,7 @@ public class GoToHeal : Node
                 //return state;
             }
         }
+        
 
         state = NodeState.RUNNIG;
         return state;

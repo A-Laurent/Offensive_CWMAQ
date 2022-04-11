@@ -34,31 +34,39 @@ public class ShootEnemy : Node
         Transform target = (Transform)GetData("target");
         if (target == null)
         {
+            _selfAgent.isStopped = false;
+            _selfAnimator.SetBool("Shoot", false);
             state = NodeState.FAILURE;
             return state;
         }
         //
-
+       
         origin = new Vector3(_selfTransform.position.x, _selfTransform.position.y + 1f, _selfTransform.position.z);
         newTargetPos = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
 
         Vector3 deltaPosition = new Vector3(target.position.x - _selfTransform.position.x, target.position.y - _selfTransform.position.y, target.position.z - _selfTransform.position.z);
         float angle = Vector3.Angle(_selfTransform.forward, deltaPosition);
-
+        Vector3 randomshoot = Random.insideUnitSphere * 0.5f;
+        Vector3 direction = newTargetPos - origin;
+        Vector3 newdirection = direction + randomshoot;
         //if IA has a target raycast to him in a define range and shoot when timer equel the time to shoot//
+
         RaycastHit hit;
-        if (Physics.Raycast(origin, newTargetPos - origin, out hit, 30f) && angle < 60)
+        if (Physics.Raycast(origin, newTargetPos - origin, out hit, 80f) && angle < 70)
         {
             timer += Time.deltaTime;
+            _selfAgent.isStopped = true;
             if (hit.transform.CompareTag("Enemy") && timer>= time)
             {
+                
                 _selfAudioSource.PlayOneShot(shootSound);
-                _selfAgent.isStopped = true;
                 _selfAnimator.SetBool("WalkFr", false);
                 _selfAnimator.SetBool("Shoot", true);
                 _selfTransform.LookAt(target.position);
                 hit.transform.GetComponent<HpManager>().Hp -= 10;
                 timer = 0;
+                state = NodeState.RUNNIG;
+                return state;
             }
             
             
@@ -71,11 +79,10 @@ public class ShootEnemy : Node
             state = NodeState.FAILURE;
             return state;
         }
-        //
-
-        // while he can shoot it's running//
+            
         state = NodeState.RUNNIG;
         return state;
+
     }
 
 }

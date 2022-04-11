@@ -20,6 +20,7 @@ public class GoToReload : Node
 
     public override NodeState Evaluate()
     {
+       
         // get the transform of the ammo //
         Transform ammo = (Transform)GetData("Ammo");
         //
@@ -32,6 +33,7 @@ public class GoToReload : Node
         }
         // if there is an ammo then go to its position//
         _selfAgent.destination = ammo.position;
+        _selfAgent.isStopped = false;
 
         // if the AI is close to the destination stop the movement and wait few second to reload //
         if (Vector3.Distance(_selfTransform.position, _selfAgent.destination)<0.5f)

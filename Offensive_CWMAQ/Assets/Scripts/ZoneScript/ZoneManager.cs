@@ -19,18 +19,19 @@ public class ZoneManager : MonoBehaviour
     private Vector3 centerposition = Vector3.zero;
     
     private GameObject ZoneWall;
+    private GameObject MusicManager;
     
     private int i = 0;
 
 
     private bool DoOnceResearch = true;
-
     
 
     // Start is called before the first frame update
     void Start()
     {
         ZoneWall = GameObject.Find("ZoneWall");
+        MusicManager = GameObject.Find("MusicManager");
         // set the zone wall to false //
         Interior.SetActive(false);
         Exterior.SetActive(false);
@@ -101,6 +102,7 @@ public class ZoneManager : MonoBehaviour
         if (timeBeforeShrink<=0f)
         { 
             radius = Mathf.MoveTowards(radius, shrinkRadius, ((shrinkRadius) / timeToShrink) * Time.deltaTime);
+            MusicManager.GetComponent<MusicManager>().PlaySoundZone = true;
         }
         //
 

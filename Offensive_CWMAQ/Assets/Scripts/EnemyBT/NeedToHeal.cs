@@ -37,6 +37,14 @@ public class NeedToHeal : Node
         }
         //
 
+        // if the date is null return failure//
+        if (t == null)
+        {
+            state = NodeState.FAILURE;
+            return state;
+        }
+        //
+
         // if the AI need to heal set themedikit to data and return success//
         if (_selfTransform.GetComponent<HpManager>().Hp < 50)
         {
@@ -48,13 +56,7 @@ public class NeedToHeal : Node
         }
         //
 
-        // if the date is null return failure//
-        if (t==null)
-        {
-            state = NodeState.FAILURE;
-            return state;
-        }
-        //
+       
 
         state = NodeState.SUCCESS;
         return state;

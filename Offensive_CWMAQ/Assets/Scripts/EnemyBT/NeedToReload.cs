@@ -36,6 +36,14 @@ public class NeedToReload : Node
         }
         //
 
+        // if the data is null then go to failure //
+        if (t == null)
+        {
+            state = NodeState.FAILURE;
+            return state;
+        }
+        //
+
         // if the Ai need ammo set the closest ammo in the data and go to success//
         if (_selfTransform.GetComponent<AmmoManager>().Ammo < 100f)
         {
@@ -45,13 +53,7 @@ public class NeedToReload : Node
         }
         //
 
-        // if the data is null then go to failure //
-        if (t == null)
-        {
-            state = NodeState.FAILURE;
-            return state;
-        }
-        //
+       
         state = NodeState.SUCCESS;
         return state;
     }

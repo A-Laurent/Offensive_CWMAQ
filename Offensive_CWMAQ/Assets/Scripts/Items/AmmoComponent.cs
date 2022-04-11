@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AmmoComponent : MonoBehaviour
 {
+    private int i;
 
     private float Timer;
     private float EnemyTimer;
@@ -15,20 +16,20 @@ public class AmmoComponent : MonoBehaviour
 
     private GameObject Player;
 
-    public GameObject text;
-    public GameObject fillBar;
-    public GameObject fullAmmo;
+    private GameObject text;
+    private GameObject fillBar;
+    private GameObject fullAmmo;
 
     void Start()
     {
+        text = GameObject.Find("Appuie sur E");
+        fillBar = GameObject.Find("LoadingObject");
+        fullAmmo = GameObject.Find("AmmoFull");
 
-        //Search player to get AmmoManager
+        //Search player to get AmmoManager  
         Player = GameObject.Find("Player");
+        i = 0;
 
-        //Set all canvas to false
-        text.SetActive(false);
-        fillBar.SetActive(false);
-        fullAmmo.SetActive(false);
     }
 
     void Update()
@@ -37,14 +38,23 @@ public class AmmoComponent : MonoBehaviour
         //Destroy this.gameobject if Timer if over 1f
         if (canBeDestroyed)
             GameObject.Destroy(gameObject);
+
+
+        if(i == 0)
+        {
+            //Set all canvas to false
+            text.SetActive(false);
+            fillBar.SetActive(false);
+            fullAmmo.SetActive(false);
+            i = 14;
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-
         //Check if the trigger that we are in if an Ammo (AmmoManager) && if that's the player (Movement)
-        
-        if(other.gameObject.GetComponent<AmmoManager>() && other.gameObject.GetComponent<Movement>())
+
+        if (other.gameObject.GetComponent<AmmoManager>() && other.gameObject.GetComponent<Movement>())
         {
 
             //if the player's ammo over 200, active the canva full ammo

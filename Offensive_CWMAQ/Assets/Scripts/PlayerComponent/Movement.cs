@@ -13,11 +13,12 @@ public class Movement : MonoBehaviour
     private float nextPlay;
     private float delay;
     public float delayBetweenStep;
+
     CharacterController Cc;
+
     Vector3 Deplacements;
+
     public Animator Anim;
-    public AudioSource WalkSound;
-    public AudioClip WalkClip;
 
     //Camera 
     public Camera HeadPlayer;

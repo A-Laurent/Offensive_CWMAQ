@@ -31,7 +31,7 @@ public class IsInZone : Node
         // if the distance is longer than th radius of the next zone it return success//
         if (distance > ZoneWall.GetComponent<ZoneManager>().GetNextRadiusZone())
         {
-            parent.SetData("CenterZone", ZoneWall.GetComponent<ZoneManager>().GetCenterZone());
+            SetData("CenterZone", ZoneWall.GetComponent<ZoneManager>().GetCenterZone());
             state = NodeState.SUCCESS;
             return state;
         }

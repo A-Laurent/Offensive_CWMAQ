@@ -6,18 +6,7 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-    public Text myText;
-
     //Those two fonctions allow the MainMenu to work correctly, QUIT to leave the game and Play to switch to the MainScene
-    public void QuitButton()
-    {
-        Application.Quit();
-    }
-  
-    public void PlayButton()
-    {
-        SceneManager.LoadScene("MainScene");        
-    }
 
     public void ReturnMenu()
     {
@@ -28,6 +17,4 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("CréditsScene");
     }
-
-
 }

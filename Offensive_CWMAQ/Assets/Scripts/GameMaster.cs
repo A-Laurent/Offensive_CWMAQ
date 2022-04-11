@@ -1,26 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
-    public float Timer;
+    //Crating PlayerInfos
+
     public int Kills;
     public bool IsPlayerDead = false;
     public bool IsPlayerWin = false;
 
+    public float Timer;
+    public int UITimer;
+
+    public GameObject[] playerAlive;
+
     void Update()
     {
-        GameObject[] playerAlive = GameObject.FindGameObjectsWithTag("Enemy");
+        //If player is dead, stop the timer, else increase it
+
+        if (IsPlayerWin || IsPlayerDead)
+            return;
+        else
+        {
+            Timer += Time.deltaTime;
+            UITimer = Mathf.RoundToInt(Timer);
+        }
+            
+        //Get array of all obj that had enemy tag, if player is the last of the array, isPlayerWin = true
+
+        playerAlive = GameObject.FindGameObjectsWithTag("Enemy");
         if(playerAlive.Length == 1 && IsPlayerDead==false)
         {
             IsPlayerWin = true;
-        }
-
-        if (SceneManager.GetActiveScene().name == ("MainScene"))
-        {
-            Timer += Time.deltaTime;
         }
     }
 }

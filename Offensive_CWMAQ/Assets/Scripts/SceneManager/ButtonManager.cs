@@ -8,13 +8,23 @@ public class ButtonManager : MonoBehaviour
 {
     //Those two fonctions allow the MainMenu to work correctly, QUIT to leave the game and Play to switch to the MainScene
 
-    public void ReturnMenu()
+    public void ReturnMenu(int sceneIndex)
     {
-        SceneManager.LoadScene("MenuScene");
+        StartCoroutine(LoadAsync(sceneIndex));
     }
 
-    public void GoCredits()
+    //public void GoCredits()
+    //{
+    //    SceneManager.LoadScene("CréditsScene");
+    //}
+
+    IEnumerator LoadAsync(int sceneIndex)
     {
-        SceneManager.LoadScene("CréditsScene");
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        while(!operation.isDone)
+        {
+            yield return null;
+        }
     }
 }

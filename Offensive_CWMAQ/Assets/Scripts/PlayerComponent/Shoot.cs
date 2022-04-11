@@ -9,6 +9,7 @@ public class Shoot : MonoBehaviour
     public float WeaponRange = 1000f;
     public CameraComp CamComp;
     public Camera TpsCam;
+    private GameObject GameMaster;
     public AudioSource Audiosource;
     public AudioClip Sound;
     public Animator Anim;
@@ -18,26 +19,33 @@ public class Shoot : MonoBehaviour
         //Shoot with Left click
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            Anim.SetBool("Shoot", true);
-            if (Time.time > nextFire)
+            if (GetComponent<AmmoManager>().Ammo >= 1)
             {
-
-                GetComponent<AmmoManager>().Ammo -= 1;
-                //Duration between two fire 
-                nextFire = Time.time + FireRate;
-
-                //From where the ray with start 
-                Ray rayOrigin = TpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));               
-
-                //Creation of ray with a max range
-                if (Physics.Raycast(rayOrigin, out hit, WeaponRange))
+                Anim.SetBool("Shoot", true);
+                if (Time.time > nextFire)
                 {
                     //Shot fire
                     Audiosource.PlayOneShot(Sound);
-                    //If it's a bot we kill
-                    if(hit.collider.CompareTag("Bot"))
+
+                    GetComponent<AmmoManager>().Ammo -= 1;
+                    //Duration between two fire 
+                    nextFire = Time.time + FireRate;
+
+                    //From where the ray with start 
+                    Ray rayOrigin = TpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+
+                    //Creation of ray with a max range
+                    if (Physics.Raycast(rayOrigin, out hit, WeaponRange))
                     {
-                        hit.collider.GetComponent<HpManager>().Hp -= 10;
+                        //If it's a bot we kill
+                        if (hit.collider.CompareTag("Enemy"))
+                        {
+                            hit.collider.GetComponent<HpManager>().Hp -= 10;
+                            if (hit.collider.GetComponent<HpManager>().Hp <= 0)
+                            {
+                                GameMaster.GetComponent<GameMaster>().Kills += 1;
+                            }
+                        }
                     }
                 }
             }

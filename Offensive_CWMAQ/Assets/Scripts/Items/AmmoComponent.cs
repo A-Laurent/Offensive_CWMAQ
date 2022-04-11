@@ -23,7 +23,7 @@ public class AmmoComponent : MonoBehaviour
     void Start()
     {
         text = GameObject.Find("Appuie sur E");
-        fillBar = GameObject.Find("LoadingObject");
+        fillBar = GameObject.Find("LoadingAmmoObject");
         fullAmmo = GameObject.Find("AmmoFull");
 
         //Search player to get AmmoManager  
@@ -115,6 +115,7 @@ public class AmmoComponent : MonoBehaviour
         if(Input.GetKey(KeyCode.E))
         {
             Timer = 0;
+            fullAmmo.SetActive(false);
             fillBar.SetActive(false);
             text.SetActive(false);
         }

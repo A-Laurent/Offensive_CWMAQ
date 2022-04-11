@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class UIFillLoading : MonoBehaviour
 {
 
-    public GameObject AmmoManagerObject;
+    public GameObject Player;
+
     private float maxTime;
 
-    public Image TimerFillBar;
+    public Image AmmoFillBar;
+    public Image LifeFillBar;
     void Start()
     {
         maxTime = 1f;
@@ -18,9 +20,7 @@ public class UIFillLoading : MonoBehaviour
     // Loading fillbar with a timer
     void Update()
     {
-        if (AmmoManagerObject == null)
-            return;
-
-        TimerFillBar.fillAmount = AmmoManagerObject.GetComponent<AmmoManager>().TimerUI / maxTime;        
+        AmmoFillBar.fillAmount = Player.GetComponent<AmmoManager>().TimerUI / maxTime;
+        LifeFillBar.fillAmount = Player.GetComponent<HpManager>().TimerUILife / maxTime;
     }
 }

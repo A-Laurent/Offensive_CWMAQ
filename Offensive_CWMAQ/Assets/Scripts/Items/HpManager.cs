@@ -9,6 +9,13 @@ public class HpManager : MonoBehaviour
     private GameObject GameMaster;
     public int Hp;
     int i = 0;
+
+    public float TimerUILife;
+    public int Ammo;
+
+    private bool IsInTrigger;
+    private bool IsKeyPressed;
+
     void Start()
     {
         Hp = 100;
@@ -17,10 +24,11 @@ public class HpManager : MonoBehaviour
 
     void Update()
     {
+        CheckPressedTime();
 
         //This condition allow the player to lose switch scene if the player has no HP left 
 
-        if(Hp <= 0 && GetComponent<Movement>()&& i == 0)
+        if (Hp <= 0 && GetComponent<Movement>()&& i == 0)
         {
             //GameMaster.GetComponent<GameMaster>().CanMove = false;
             GameMaster.GetComponent<GameMaster>().IsPlayerDead = true;
@@ -38,6 +46,50 @@ public class HpManager : MonoBehaviour
         {
             GameObject.Destroy(this.gameObject);                     
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+
+        //if player enters in Ammo's trigger zone and Ammo's player < 200 then, IsInTriger = true
+        if (other.gameObject.GetComponent<MedKitComp>())
+        {
+            if (Hp < 100)
+            {
+                IsInTrigger = true;
+            }
+
+        }
+    }
+    public float CheckPressedTime()
+    {
+
+        //Check if E is pressed in the trigger zone
+        if (Input.GetKey(KeyCode.E) && IsInTrigger)
+        {
+
+            //if yes, timerUI increase the deltaTime
+            if (IsKeyPressed)
+            {
+                TimerUILife += Time.deltaTime;
+                IsKeyPressed = false;
+            }
+            else
+            {
+                if ((Time.time - TimerUILife) > 1.0f)
+                {
+                    IsKeyPressed = true;
+                }
+            }
+        }
+        //if E is UP, TimerUI reset
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            TimerUILife = 0;
+            IsKeyPressed = true;
+        }
+
+        return TimerUILife;
     }
 
 }

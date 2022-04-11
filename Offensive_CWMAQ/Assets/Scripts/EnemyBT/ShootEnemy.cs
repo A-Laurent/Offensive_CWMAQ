@@ -52,7 +52,7 @@ public class ShootEnemy : Node
         //if IA has a target raycast to him in a define range and shoot when timer equel the time to shoot//
 
         RaycastHit hit;
-        if (Physics.Raycast(origin, newTargetPos - origin, out hit, 80f) && angle < 70)
+        if (Physics.Raycast(origin, newdirection, out hit, 80f) && angle < 70)
         {
             timer += Time.deltaTime;
             _selfAgent.isStopped = true;

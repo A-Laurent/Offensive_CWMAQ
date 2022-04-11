@@ -8,10 +8,12 @@ public class IsInZone : Node
 {
     private Transform _selfTransform;
     private NavMeshAgent _selfAgent;
-    public IsInZone(Transform selftransform, NavMeshAgent selfagent)
+    private Animator _selfAnimator;
+    public IsInZone(Transform selftransform, NavMeshAgent selfagent, Animator selfanimator)
     {
         _selfTransform = selftransform;
         _selfAgent = selfagent;
+        _selfAnimator = selfanimator;
     }
 
     public override NodeState Evaluate()
@@ -42,9 +44,10 @@ public class IsInZone : Node
         }
         if (ZoneWall.GetComponent<ZoneManager>().InZone(_selfTransform.position))
         {
-            
-            ClearData("CenterZone");
+
+            _selfAnimator.SetBool("WalkFr", false);
             _selfAgent.isStopped = true;
+            ClearData("CenterZone");
             state = NodeState.FAILURE;
             return state;
         }

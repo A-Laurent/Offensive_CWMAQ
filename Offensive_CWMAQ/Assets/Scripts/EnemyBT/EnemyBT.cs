@@ -26,23 +26,23 @@ public class EnemyBT : Tree
             }),
             new Sequence(new List<Node>
             { 
-                new IsInZone(transform,SelfAgent),
-                new GoToZone(SelfAgent)
+                new IsInZone(transform,SelfAgent, SelfAnimator),
+                new GoToZone(SelfAgent,SelfAnimator),
 
             }),
             new Sequence(new List<Node>
             {
                 new NeedToHeal(transform),
-                new GoToHeal(transform,SelfAgent),
+                new GoToHeal(transform,SelfAgent,SelfAnimator),
 
             }),
             new Sequence(new List<Node>
             {
                 new NeedToReload(transform),
-                new GoToReload(transform,SelfAgent),
+                new GoToReload(transform,SelfAgent,SelfAnimator),
 
             }),
-            new WalkAroundTask(transform,SelfAgent),
+            new WalkAroundTask(transform,SelfAgent,SelfAnimator),
            
 
         });

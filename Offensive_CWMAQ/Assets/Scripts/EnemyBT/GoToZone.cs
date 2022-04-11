@@ -8,9 +8,11 @@ public class GoToZone : Node
 {
 
     private NavMeshAgent _selfAgent;
-    public GoToZone(NavMeshAgent selfagent)
+    private Animator _selfAnimator;
+    public GoToZone(NavMeshAgent selfagent, Animator selfanimator)
     {
         _selfAgent = selfagent;
+        _selfAnimator = selfanimator;
     }
 
     public override NodeState Evaluate()
@@ -26,7 +28,8 @@ public class GoToZone : Node
 
 
         _selfAgent.destination = centerZone;
-        
+        _selfAnimator.SetBool("WalkFr", true);
+
 
 
         state = NodeState.RUNNIG;

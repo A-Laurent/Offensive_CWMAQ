@@ -8,12 +8,14 @@ public class WalkAroundTask : Node
 {
     private Transform _selfTransform;
     private NavMeshAgent _selfAgent;
+    private Animator _selfAnimator;
 
 
-    public WalkAroundTask(Transform selftransform, NavMeshAgent selfagent)
+    public WalkAroundTask(Transform selftransform, NavMeshAgent selfagent, Animator selfanimator)
     {
         _selfTransform = selftransform;
         _selfAgent = selfagent;
+        _selfAnimator = selfanimator;
     }
 
 
@@ -30,6 +32,8 @@ public class WalkAroundTask : Node
         if (!_selfAgent.hasPath && ZoneWall.GetComponent<ZoneManager>().InZone(NextPos))
         {
             _selfAgent.destination = NextPos;
+
+            _selfAnimator.SetBool("WalkFr", false);
         }
 
         _selfAgent.isStopped = false;

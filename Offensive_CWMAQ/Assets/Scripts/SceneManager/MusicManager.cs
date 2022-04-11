@@ -7,6 +7,7 @@ public class MusicManager : MonoBehaviour
 {
     int i ;
     int id ;
+
     public AudioSource DiedSound;
     public AudioClip DiedClip;
     public AudioSource WinMusic;
@@ -15,6 +16,7 @@ public class MusicManager : MonoBehaviour
     public AudioClip Shootclip;
     private GameObject Player;
     private GameObject GameMaster;
+
     public bool PlayShootSound;
     private float nextFire;
     private float FireRate = 0.1f;
@@ -28,7 +30,7 @@ public class MusicManager : MonoBehaviour
     private void Update()
     {
         
-        if(GameMaster.GetComponent<GameMaster>().IsPlayerWin == true && i == 0)
+        if(GameMaster.GetComponent<GameMaster>().IsPlayerWin == true && i == 0) 
         {
             i++;
             WinMusic.PlayOneShot(WinClip);

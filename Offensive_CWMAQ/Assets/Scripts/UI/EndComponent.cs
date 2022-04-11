@@ -18,6 +18,7 @@ public class EndComponent : MonoBehaviour
     public GameObject HealthBarBG;
     public GameObject HealthBar;
     public GameObject HealthBarBorder;
+    public GameObject Cursor;
 
     //All canvas to activate if games end
 
@@ -26,7 +27,10 @@ public class EndComponent : MonoBehaviour
     public GameObject DiedText;
     public GameObject WinText;
     public GameObject Titles;
-    public GameObject Button;
+    public GameObject ReturnToMenu;
+    public GameObject Credits;
+
+
 
     private bool ActiveButton;
     private float Timer;
@@ -43,7 +47,8 @@ public class EndComponent : MonoBehaviour
         RawImage.SetActive(false);
         Titles.SetActive(false);
         PlayerInfo.SetActive(false);
-        Button.SetActive(false);
+        ReturnToMenu.SetActive(false);
+        Credits.SetActive(false);
     }
 
     // Update is called once per frame
@@ -56,7 +61,11 @@ public class EndComponent : MonoBehaviour
             ActiveEndButton();
 
             if (ActiveButton)
-                Button.SetActive(true);
+            {
+                ReturnToMenu.SetActive(true);
+                Credits.SetActive(true);
+            }
+                
         }
 
         if (GameMaster.GetComponent<GameMaster>().IsPlayerWin)
@@ -66,7 +75,11 @@ public class EndComponent : MonoBehaviour
             ActiveEndButton();
 
             if (ActiveButton)
-                Button.SetActive(true);
+            {
+                Credits.SetActive(true);
+                ReturnToMenu.SetActive(true);
+            }
+                
         }
     }
 
@@ -84,6 +97,7 @@ public class EndComponent : MonoBehaviour
         HealthBar.SetActive(false);
         HealthBarBG.SetActive(false);
         HealthBarBorder.SetActive(false);
+        Cursor.SetActive(false);
 
         //Activate all canvas for EndGame
         RawImage.SetActive(true);

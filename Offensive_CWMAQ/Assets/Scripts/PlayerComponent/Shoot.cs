@@ -19,6 +19,10 @@ public class Shoot : MonoBehaviour
     }
     void Update()
     {
+
+        if (GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
+            return;
+
         RaycastHit hit;
         //Shoot with Left click
         if (Input.GetKey(KeyCode.Mouse0))

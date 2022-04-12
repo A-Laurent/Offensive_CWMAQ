@@ -11,7 +11,6 @@ public class HpManager : MonoBehaviour
     int i = 0;
 
     public float TimerUILife;
-    public int Ammo;
 
     private bool IsInTrigger;
     private bool IsKeyPressed;

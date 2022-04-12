@@ -16,13 +16,18 @@ public class Waypoint : MonoBehaviour
 
     private void Start()
     {
+
+        //Get ZoneWall to have access to CenterZone + set offset to 1000
         ZoneWall = GameObject.Find("ZoneWall");
         offset.y = 1000;
     }
     void Update()
     {
+        //Get centerZone
         Vector3 centerZone = ZoneWall.GetComponent<ZoneManager>().GetCenterZone();
 
+
+        //print direction point only if center zone is set
         if (centerZone == Vector3.zero)
             img.gameObject.SetActive(false);
         else

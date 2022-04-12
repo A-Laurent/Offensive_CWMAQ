@@ -70,6 +70,29 @@ public class MedKitComp : MonoBehaviour
                 CheckPressedTime();
             }
         }
+
+        //If the collision that we are in is an ammo (HpManager) && we are the BOT
+
+        if (other.gameObject.GetComponent<HpManager>() && other.gameObject.GetComponent<EnemyBT>())
+        {
+
+            //if bot life is full, do nothing
+            if (other.gameObject.GetComponent<HpManager>().Hp >= 100)
+                return;
+
+            //if bot life is bellow 100, launch timer
+            if (other.gameObject.GetComponent<HpManager>().Hp < 100)
+            {
+                EnemyTimer += Time.deltaTime;
+
+                //if timer > 2f, refill to 100 and destroy the life_obj
+                if (EnemyTimer > 2f)
+                {
+                    other.gameObject.GetComponent<HpManager>().Hp = 100;
+                    GameObject.Destroy(this.gameObject);
+                }
+            }
+        }
     }
 
 

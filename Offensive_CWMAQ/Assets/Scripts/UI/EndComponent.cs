@@ -71,7 +71,6 @@ public class EndComponent : MonoBehaviour
 
         if (GameMaster.GetComponent<GameMaster>().IsPlayerDead)
         {
-
             //if player dead, active endUI and print endText + playerinfos
             DiedText.SetActive(true);
             ActiveEnd();
@@ -83,6 +82,7 @@ public class EndComponent : MonoBehaviour
             {
                 ReturnToMenu.SetActive(true);
                 Credits.SetActive(true);
+                Time.timeScale = 0f;
             }
                 
         }
@@ -99,6 +99,7 @@ public class EndComponent : MonoBehaviour
             {
                 Credits.SetActive(true);
                 ReturnToMenu.SetActive(true);
+                Time.timeScale = 0f;
             }
                 
         }

@@ -11,14 +11,14 @@ public class CameraComp : MonoBehaviour
     public float Yaxe;
     public float Sensitivity = 8.0f;
     public Transform Target;
-    public Transform Player;
+    public GameObject Player;
 
     public GameObject GameMaster;
     
     void Update()
     {
 
-        if (GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
+        if (Player.GetComponent<Movement>().IsMenu)
             return;
 
         //Position of the mouse

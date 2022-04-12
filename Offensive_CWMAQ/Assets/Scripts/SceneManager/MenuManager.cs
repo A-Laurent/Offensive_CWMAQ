@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MenuManager : MonoBehaviour
     public GameObject Credits;
     public GameObject Map1;
     public GameObject Map2;
+
+    public EventSystem M_eventSystem;
 
     //Disable Map selector on Awake
     private void Start()
@@ -28,6 +31,9 @@ public class MenuManager : MonoBehaviour
 
         Map1.SetActive(true);
         Map2.SetActive(true);
+
+        M_eventSystem.SetSelectedGameObject(Map1);
+        
     }
 
     //Load Map1

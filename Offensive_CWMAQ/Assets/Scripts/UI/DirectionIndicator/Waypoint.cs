@@ -29,7 +29,7 @@ public class Waypoint : MonoBehaviour
 
         //print direction point only if center zone is set
         if (centerZone == Vector3.zero)
-            img.gameObject.SetActive(false);
+            img.gameObject.SetActive(false); 
         else
             img.gameObject.SetActive(true);
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class Movement : MonoBehaviour
 {
@@ -14,6 +15,15 @@ public class Movement : MonoBehaviour
     private float delay;
     public float delayBetweenStep;
 
+    public bool IsMenu = false;
+
+    public GameObject PauseMenuImg;
+    public GameObject PauseText;
+    public GameObject ResumeBTN;
+    public GameObject QUITBtn;
+
+    public EventSystem M_EventSystem;
+
     CharacterController Cc;
 
     Vector3 Deplacements;
@@ -25,6 +35,11 @@ public class Movement : MonoBehaviour
     
     void Start()
     {
+        PauseMenuImg.SetActive(false);
+        PauseText.SetActive(false);
+        ResumeBTN.SetActive(false);
+        QUITBtn.SetActive(false);
+
         //suppr cursor
         Cursor.visible = false;
         //Get Charactere controler component
@@ -34,12 +49,37 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        Movements();
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            IsMenu = true;
+            Time.timeScale = 0f;
+            M_EventSystem.SetSelectedGameObject(ResumeBTN);
+        }
+
+        if(IsMenu)
+        {
+            PauseMenuImg.SetActive(true);
+            PauseText.SetActive(true);
+            ResumeBTN.SetActive(true);
+            QUITBtn.SetActive(true);
+        }
+
+        if(!IsMenu)
+        {
+            Time.timeScale = 1f;
+
+            PauseMenuImg.SetActive(false);
+            PauseText.SetActive(false);
+            ResumeBTN.SetActive(false);
+            QUITBtn.SetActive(false);
+
+            Movements();
+        }
+           
     }
 
     private void Movements()
     {
-        
         //Initializing movement vectors
         Vector3 z = transform.TransformDirection(Vector3.forward);
         Vector3 x = transform.TransformDirection(Vector3.right);

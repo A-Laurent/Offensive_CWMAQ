@@ -12,7 +12,6 @@ public class CameraComp : MonoBehaviour
     public float Sensitivity = 8.0f;
     public Transform Target;
     public Transform Player;
-
     public GameObject GameMaster;
     
     void Update()
@@ -21,9 +20,27 @@ public class CameraComp : MonoBehaviour
         if (GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
             return;
 
+        //Get Joystick Names
+        string[] temp = Input.GetJoystickNames();
+
+        //Check whether array contains anything
+
+        //Iterate over every element
+        //Check if the string is empty or not
+
+        //Not empty, controller temp[i] is connected
         //Position of the mouse
-        Xaxe -= Input.GetAxis("Mouse Y") * Sensitivity;
+        Yaxe += Input.GetAxis("JoystickrightX") * Sensitivity;
+        Xaxe -= Input.GetAxis("JoystickrightY") * Sensitivity;
+
+
+        //If it is empty, controller i is disconnected
+        //where i indicates the controller number
         Yaxe += Input.GetAxis("Mouse X") * Sensitivity;
+        Xaxe -= Input.GetAxis("Mouse Y") * Sensitivity;
+
+        Debug.Log(Yaxe);
+        
 
         //Define the target witch will the camera turn around
         Vector3 TargetRotate = new Vector3(Xaxe, Yaxe);

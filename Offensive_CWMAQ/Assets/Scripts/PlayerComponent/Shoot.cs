@@ -22,10 +22,10 @@ public class Shoot : MonoBehaviour
 
         if (GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
             return;
-
+        Debug.Log(Input.GetAxis("TriggerRT"));
         RaycastHit hit;
         //Shoot with Left click
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0)|| Input.GetAxis("TriggerRT") > 0.2)
         {
             if (GetComponent<AmmoManager>().Ammo >= 1)
             {
@@ -68,7 +68,7 @@ public class Shoot : MonoBehaviour
             Anim.SetBool("Shoot", false);
         }
         //Aiming if we use Right click
-        if(Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1) || Input.GetAxis("TriggerLT")>0.2)
         {
             CamComp.GetComponent<CameraComp>().Aiming = true;
         }

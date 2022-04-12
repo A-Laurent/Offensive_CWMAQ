@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpawnBot : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SpawnBot : MonoBehaviour
         {   //Random on all the map for where the bot can spawn
             posX = Random.Range(50, 950);
             posZ = Random.Range(10, 450);
+            
             //Instantiate them with a prefab
             Instantiate(Botsprefab, new Vector3(posX, 20, posZ), Quaternion.identity);
         }

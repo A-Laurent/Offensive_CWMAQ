@@ -125,7 +125,7 @@ public class AmmoComponent : MonoBehaviour
     //This function create a Timer that correspond to the pressed Time of E 
     public bool CheckPressedTime()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E)||Input.GetButton("ButtonX"))
         {
             
             if (IsKeyPressed)

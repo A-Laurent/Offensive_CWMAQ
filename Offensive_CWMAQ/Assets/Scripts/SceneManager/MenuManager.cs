@@ -82,6 +82,8 @@ public class MenuManager : MonoBehaviour
 
     public void Synopsis()
     {
+        M_eventSystem.SetSelectedGameObject(ReturnMenuBTN);
+
         PlayButton.SetActive(false);
         SynopsisMenuBTN.SetActive(false);
         QuitButton.SetActive(false);

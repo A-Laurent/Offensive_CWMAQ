@@ -8,7 +8,7 @@ public class NeedToReload : Node
 {
     private Transform _selfTransform;
 
-    private int _layerAmmo = 1 << 9;
+    private int _layerAmmo = 1 << 8;
     public NeedToReload(Transform selftransform)
     {
         _selfTransform = selftransform;
@@ -16,6 +16,7 @@ public class NeedToReload : Node
 
     public override NodeState Evaluate()
     {
+       
         object t = GetData("Ammo");
         // check evry collider around and get those with the layer Ammo active//
         Collider[] colliderammo = Physics.OverlapSphere(_selfTransform.position, 80f, _layerAmmo);
@@ -36,13 +37,7 @@ public class NeedToReload : Node
         }
         //
 
-        // if the data is null then go to failure //
-        if (t == null)
-        {
-            state = NodeState.FAILURE;
-            return state;
-        }
-        //
+       
 
         // if the Ai need ammo set the closest ammo in the data and go to success//
         if (_selfTransform.GetComponent<AmmoManager>().Ammo < 100f)
@@ -53,7 +48,14 @@ public class NeedToReload : Node
         }
         //
 
-       
+        // if the data is null then go to failure //
+        if (t == null)
+        {
+            state = NodeState.FAILURE;
+            return state;
+        }
+        //
+
         state = NodeState.SUCCESS;
         return state;
     }

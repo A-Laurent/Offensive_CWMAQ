@@ -11,18 +11,41 @@ public class EnemyBT : Tree
 
     protected override Node SetupTree()
     {
-        //Node root = new Selector(new List<Node>
-        //{
-        //    new Sequence(new List<Node>
-        //    {
-        //        new CheckIfEnemyInFOV(transform),
-        //        new ShootEnemy(transform, SelfAnimator, SelfAgent,ShootSound,SelfAudioSource),
-        //    }),
-        //    new GoToTarget(transform,SelfAgent,SelfAnimator),
+        Node root = new Selector(new List<Node>
+        {
 
-        //});
-        Node root = new IsInZone(transform);
+            new Selector(new List<Node>
+            {
+                new Sequence(new List<Node>
+                {
+                    new CheckIfEnemyInFOV(transform, SelfAgent),
+                    new ShootEnemy(transform,SelfAnimator,SelfAgent,ShootSound,SelfAudioSource),
+                }),
+                new GoToTarget(transform,SelfAgent,SelfAnimator),
 
+            }),
+            new Sequence(new List<Node>
+            { 
+                new IsInZone(transform,SelfAgent, SelfAnimator),
+                new GoToZone(SelfAgent,SelfAnimator),
+
+            }),
+            new Sequence(new List<Node>
+            {
+                new NeedToHeal(transform),
+                new GoToHeal(transform,SelfAgent,SelfAnimator),
+
+            }),
+            new Sequence(new List<Node>
+            {
+                new NeedToReload(transform),
+                new GoToReload(transform,SelfAgent,SelfAnimator),
+
+            }),
+            new WalkAroundTask(transform,SelfAgent,SelfAnimator),
+           
+
+        });
 
         return root;
     }

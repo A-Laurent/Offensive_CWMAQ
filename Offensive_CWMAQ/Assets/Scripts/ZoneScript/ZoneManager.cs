@@ -50,11 +50,10 @@ public class ZoneManager : MonoBehaviour
         {
             // Get the all the players alive//
             GameObject[] alivePlayers = GameObject.FindGameObjectsWithTag("Enemy");
-
+            
             // for each alive player add their position to the center position then divide the center position by the number of alive player and you get the average position//
             foreach (GameObject alive in alivePlayers)
             {
-                
                 centerposition += alivePlayers[i].transform.position;
                 i += 1;
             }
@@ -111,7 +110,7 @@ public class ZoneManager : MonoBehaviour
     // function to get the center of the zone//
     public Vector3 GetCenterZone()
     {
-        return ZoneWall.transform.position;
+        return centerposition;
     }
     //
 
@@ -125,9 +124,18 @@ public class ZoneManager : MonoBehaviour
     // function to get the distance between a position you give to the fonction and the center of the position//
     public float DistZone(Vector3 position)
     {
-        return Vector3.Distance(ZoneWall.transform.position, position);
+        return Vector3.Distance(centerposition, position);
     }
     //
 
+    public bool InZone(Vector3 position)
+    {
+        if (DistZone(position) < shrinkRadius) 
+        {
+            return true;
+        }
+
+        return false;
+    }
     
 }

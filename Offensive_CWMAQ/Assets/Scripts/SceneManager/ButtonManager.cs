@@ -4,27 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ButtonManager : MonoBehaviour  
+public class ButtonManager : MonoBehaviour
 {
     public GameObject Player;
-    private bool CanResetTimeScale = false;
+    public bool CanResetTimeScale = false;
 
     private void Update()
     {
-        if (CanResetTimeScale && Time.timeScale == 0)
-            Time.timeScale = 1f;
     }
     public void ReturnMenu()
     {
         CanResetTimeScale = true;
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("MenuScene");
+
+        if(Time.timeScale == 1f)
+            SceneManager.LoadScene("MenuScene");
 
     }
     public void GoCredits()
     {
         CanResetTimeScale = true;
-        SceneManager.LoadScene("CréditsScene");
+
+        if (Time.timeScale == 1f)
+            SceneManager.LoadScene("CréditsScene");
     }
 
     public void Resume()

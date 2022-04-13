@@ -39,7 +39,7 @@ public class Shoot : MonoBehaviour
                     nextFire = Time.time + FireRate;
 
                     //From where the ray with start 
-                    Ray rayOrigin = TpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+                    Ray rayOrigin = TpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
 
                     //Creation of ray with a max range
                     if (Physics.Raycast(rayOrigin, out hit, WeaponRange))

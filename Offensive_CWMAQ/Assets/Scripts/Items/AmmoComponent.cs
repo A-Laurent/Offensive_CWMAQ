@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AmmoComponent : MonoBehaviour
 {
@@ -16,40 +17,42 @@ public class AmmoComponent : MonoBehaviour
 
     private GameObject Player;
 
-    private GameObject text;
-    private GameObject fillBar;
-    private GameObject fullAmmo;
+    public Text text;
+    public GameObject fillBar;
+    public Text fullAmmo;
 
     private bool isInit = false;
 
     void Start()
     {
-
+        text.gameObject.SetActive(false);
+        fillBar.gameObject.SetActive(false);
+        fullAmmo.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (fillBar == null)
-            {
-                fillBar = GameObject.Find("LoadingAmmoObject");
-                if (fillBar != null)
-                    fillBar.SetActive(false);
-            }
+        //if (fillBar == null)
+        //    {
+        //        fillBar = GameObject.Find("LoadingAmmoObject");
+        //        if (fillBar != null)
+        //            fillBar.SetActive(false);
+        //    }
 
-        if (fullAmmo == null)
-        {
-            fullAmmo = GameObject.Find("AmmoFull");
-            if (fullAmmo != null)
-                fullAmmo.SetActive(false);
-        }
+        //if (fullAmmo == null)
+        //{
+        //    fullAmmo = GameObject.Find("AmmoFull");
+        //    if (fullAmmo != null)
+        //        fullAmmo.SetActive(false);
+        //}
 
-        if (text == null)
-        {
-            text = GameObject.Find("PressE");
-            if (text != null)
-                text.SetActive(false);
+        //if (text == null)
+        //{
+        //    text = GameObject.Find("PressE");
+        //    if (text != null)
+        //        text.SetActive(false);
 
-        }
+        //}
 
         if (Player == null)
         {
@@ -58,8 +61,6 @@ public class AmmoComponent : MonoBehaviour
 
         if (canBeDestroyed)
             GameObject.Destroy(gameObject);
-
-        Debug.Log(fullAmmo);
     }
 
     private void OnTriggerStay(Collider other)
@@ -72,15 +73,15 @@ public class AmmoComponent : MonoBehaviour
             //if the player's ammo over 200, active the canva full ammo
             if (other.gameObject.GetComponent<AmmoManager>().Ammo >= 200)
             {
-                fullAmmo.SetActive(true);
+                fullAmmo.gameObject.SetActive(true);
             }
 
             //if the player's ammo below 200, active canva (press E), and load the timer
             if (other.gameObject.GetComponent<AmmoManager>().Ammo < 200)
             {
-                fullAmmo.SetActive(false);
+                fullAmmo.gameObject.SetActive(false);
                 IsInTrigger = true;
-                text.SetActive(true);
+                text.gameObject.SetActive(true);
                 CheckPressedTime();
             }
 
@@ -90,7 +91,6 @@ public class AmmoComponent : MonoBehaviour
 
         if (other.gameObject.GetComponent<AmmoManager>() && other.gameObject.GetComponent<EnemyBT>())
         {
-            Debug.Log("oui");
             //if bot ammo are full, do nothing
             if (other.gameObject.GetComponent<AmmoManager>().Ammo >= 200)
                 return;
@@ -113,18 +113,18 @@ public class AmmoComponent : MonoBehaviour
             //if collision exit, unload canvas, and set IsInTrigger to false
             IsInTrigger = false;
 
-            fullAmmo.SetActive(false);
-            fillBar.SetActive(false);
-            text.SetActive(false);
+            fullAmmo.gameObject.SetActive(false);
+            fillBar.gameObject.SetActive(false);
+            text.gameObject.SetActive(false);
 
 
             //if leaving zone while pressing E, reset timer and unload canvas 
             if (Input.GetKey(KeyCode.E))
             {
                 Timer = 0;
-                fullAmmo.SetActive(false);
-                fillBar.SetActive(false);
-                text.SetActive(false);
+                fullAmmo.gameObject.SetActive(false);
+                fillBar.gameObject.SetActive(false);
+                text.gameObject.SetActive(false);
             }
         }
 
@@ -140,7 +140,7 @@ public class AmmoComponent : MonoBehaviour
             if (IsKeyPressed)
             {
                 //if KeyPressed, active the canva and increase Time to Timer
-                fillBar.SetActive(true);
+                fillBar.gameObject.SetActive(true);
                 Timer += Time.deltaTime;
 
                 //set KeyPressed to false to check if timer if over 1f
@@ -162,8 +162,8 @@ public class AmmoComponent : MonoBehaviour
                 Player.GetComponent<AmmoManager>().Ammo = 200;
 
                 //Canvas disabled
-                text.SetActive(false);
-                fillBar.SetActive(false);
+                text.gameObject.SetActive(false);
+                fillBar.gameObject.SetActive(false);
 
                 //Set canBeDestroyed to true to destroy the object in Update() 
                 canBeDestroyed = true;
@@ -174,8 +174,8 @@ public class AmmoComponent : MonoBehaviour
         {
 
             //if E is up, all canvas disabled and Timer reset
-            text.SetActive(false);
-            fillBar.SetActive(false);
+            text.gameObject.SetActive(false);
+            fillBar.gameObject.SetActive(false);
             Timer = 0;
             IsKeyPressed = true;
         }
@@ -183,7 +183,7 @@ public class AmmoComponent : MonoBehaviour
         if(Input.GetKey(KeyCode.E) && !IsInTrigger || Input.GetButton("ButtonX") && !IsInTrigger)
         {
             //if E pressed and player leaving zone, unload fillBar
-            fillBar.SetActive(false);
+            fillBar.gameObject.SetActive(false);
         }
 
         return canBeDestroyed;

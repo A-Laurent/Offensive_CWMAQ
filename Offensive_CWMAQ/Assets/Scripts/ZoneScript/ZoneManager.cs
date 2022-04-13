@@ -46,7 +46,6 @@ public class ZoneManager : MonoBehaviour
     {
         istimeToSearch += Time.deltaTime;
         timeBeforeShrink -= Time.deltaTime;
-        Debug.Log(timeBeforeShrink);
 
         // if it's the time to create the first zone and it's not done do it //
         if (istimeToSearch > 15f && DoOnceResearch)

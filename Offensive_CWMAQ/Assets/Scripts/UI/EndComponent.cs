@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class EndComponent : MonoBehaviour
 {
     private GameObject GameMaster;
+    public GameObject M_Canva;
 
 
     //All canvas to desactivate if games end
@@ -19,7 +20,7 @@ public class EndComponent : MonoBehaviour
     public GameObject HealthBarBG;
     public GameObject HealthBar;
     public GameObject HealthBarBorder;
-    public GameObject Cursor;
+    public GameObject CursorIG;
 
     //All canvas to activate if games end
 
@@ -44,6 +45,7 @@ public class EndComponent : MonoBehaviour
 
     //Timer for make buttons appear
     private float Timer;
+    private bool DoOnce = true;
 
     // Start is called before the first frame update
     void Start()
@@ -88,7 +90,10 @@ public class EndComponent : MonoBehaviour
             {     
                 ReturnToMenu.SetActive(true);
                 Credits.SetActive(true);
-                Time.timeScale = 0f;
+                if(DoOnce)
+                    Time.timeScale = 0f;
+                if (M_Canva.GetComponent<ButtonManager>().CanResetTimeScale)
+                    Time.timeScale = 1f;
             }
                 
         }
@@ -105,7 +110,10 @@ public class EndComponent : MonoBehaviour
             {
                 Credits.SetActive(true);
                 ReturnToMenu.SetActive(true);
-                Time.timeScale = 0f;
+                if(DoOnce)
+                    Time.timeScale = 0f;
+                if (M_Canva.GetComponent<ButtonManager>().CanResetTimeScale)
+                    Time.timeScale = 1f;
             }
                 
         }
@@ -126,7 +134,7 @@ public class EndComponent : MonoBehaviour
         HealthBar.SetActive(false);
         HealthBarBG.SetActive(false);
         HealthBarBorder.SetActive(false);
-        Cursor.SetActive(false);
+        CursorIG.SetActive(false);
 
         //Activate all canvas for EndGame
         RawImage.SetActive(true);
@@ -135,6 +143,7 @@ public class EndComponent : MonoBehaviour
 
         if (i == 0)
         {
+            Cursor.visible = true;
             M_EventSystem.SetSelectedGameObject(Credits);
             i = 14;
         }

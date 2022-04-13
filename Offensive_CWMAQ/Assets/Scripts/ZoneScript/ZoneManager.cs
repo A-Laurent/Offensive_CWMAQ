@@ -134,6 +134,7 @@ public class ZoneManager : MonoBehaviour
     }
     //
 
+    // function that return if the position given is in the next zone //
     public bool InNextZone(Vector3 position)
     {
         if (DistZone(position) < shrinkRadius)
@@ -143,6 +144,9 @@ public class ZoneManager : MonoBehaviour
 
         return false;
     }
+    //
+
+    // function that return the position given is in the current zone //
     public bool InZone(Vector3 position)
     {
         if (DistZone(position) < radius) 
@@ -152,9 +156,12 @@ public class ZoneManager : MonoBehaviour
 
         return false;
     }
+    //
     
+    // function that return if the zone is define //
     public bool ZoneDefine()
     {
         return IsZoneDefine; 
     }
+    //
 }

@@ -18,6 +18,7 @@ public class VisionInZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Set an Image in front of the camera if youre out of th zone //
         if (!ZoneWall.GetComponent<ZoneManager>().InZone(transform.position) && ZoneWall.GetComponent<ZoneManager>().ZoneDefine())
         { 
             Vision.gameObject.SetActive(true);

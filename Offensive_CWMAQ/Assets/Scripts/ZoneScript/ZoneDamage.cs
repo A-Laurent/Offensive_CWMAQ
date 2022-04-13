@@ -16,6 +16,7 @@ public class ZoneDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //deal 1 damage per second if you are not in the zone and id th zone is define//
         if (!ZoneWall.GetComponent<ZoneManager>().InZone(transform.position) && ZoneWall.GetComponent<ZoneManager>().ZoneDefine())
         {
             timer -= Time.deltaTime;
@@ -27,3 +28,4 @@ public class ZoneDamage : MonoBehaviour
         }
     }
 }
+//

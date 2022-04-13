@@ -24,6 +24,7 @@ public class GoToTarget : Node
 
     public override NodeState Evaluate()
     {
+        // get the transform of the target //
         Transform target = (Transform)GetData("target");
 
         if (target == null)
@@ -31,11 +32,15 @@ public class GoToTarget : Node
             state = NodeState.FAILURE;
             return state;
         }
+        //
 
+        // the Ai calculates the delta position between itself and the target position, the distance and the angle//
         Vector3 deltaPosition = new Vector3(target.position.x - _selfTransform.position.x, target.position.y - _selfTransform.position.y, target.position.z - _selfTransform.position.z);
         float distance = Vector3.Distance(target.position, _selfTransform.position);
         float angle = Vector3.Angle(_selfTransform.forward, deltaPosition);
+        //
 
+        // then make th position of the orgin of the raycast higher to not hit the ground //
         origin = new Vector3(_selfTransform.position.x, _selfTransform.position.y + 1f, _selfTransform.position.z);
         newTargetPos = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
         RaycastHit hit;
@@ -47,17 +52,19 @@ public class GoToTarget : Node
             }
         }
         else
-        {
+        {   // if the Ai is not on the last position of the target go to the last position of the target //
             if (lastTargetpos != Vector3.zero && Vector3.Distance(lastTargetpos, _selfTransform.position) > 1f)
             {
                 _selfAgent.destination = lastTargetpos;
 
             }
+            // if the AI has a path set the walk animation //
             if (_selfAgent.hasPath)
             {
                 _selfAnimator.SetBool("WalkFr", true);
             }
-
+            //
+            // if the AI is at the last position of the target stop the animation and return failure and clear the target //
             if (Vector3.Distance(_selfAgent.destination, _selfTransform.position) < 1f)
             {
                 _selfAnimator.SetBool("WalkFr", false);
@@ -65,6 +72,7 @@ public class GoToTarget : Node
                 state = NodeState.FAILURE;
                 return state;
             }
+            //
         }
         state = NodeState.RUNNIG;
         return state;

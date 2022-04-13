@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class HpManager : MonoBehaviour
 {
-    public bool PlayDeadSound;
-    private GameObject GameMaster;
     public int Hp;
-    public Animator player_anim;
-    public Animator enemy_anim;
+    private int i = 0;
+
+    public bool PlayDeadSound;
+
+    private GameObject GameMaster;
     
-    int i = 0;
-
+    public Animator Player_anim;
+    public Animator Enemy_anim;
+    
     public float TimerUILife;
-
-    private float TimerBotDeath;
 
     private bool IsInTrigger;
     private bool IsKeyPressed;
@@ -37,8 +37,8 @@ public class HpManager : MonoBehaviour
             //GameMaster.GetComponent<GameMaster>().CanMove = false;
             GameMaster.GetComponent<GameMaster>().IsPlayerDead = true;
             PlayDeadSound = true;
-            player_anim.SetBool("Idle", false);
-            player_anim.SetBool("Die", true);
+            Player_anim.SetBool("Idle", false);
+            Player_anim.SetBool("Die", true);
             
             i ++;
         }

@@ -7,7 +7,7 @@ public class UIlife : MonoBehaviour
 {
     private GameObject health;
 
-    public Image healthBar;
+    public Image HealthBar;
 
     private float maxHealth;
 
@@ -23,6 +23,6 @@ public class UIlife : MonoBehaviour
     void Update()
     {
         //fill lifebar with player's hp / maxPlayerHealth and print it on UI
-        healthBar.fillAmount = health.GetComponent<HpManager>().Hp / maxHealth;
+        HealthBar.fillAmount = health.GetComponent<HpManager>().Hp / maxHealth;
     }
 }

@@ -17,44 +17,21 @@ public class MedKitComp : MonoBehaviour
 
     private GameObject Player;
 
-    public Text text;
-    public GameObject fillBar;
-    public Text fullLife;
+    public Text _Text;
+    public GameObject FillBar;
+    public Text FullLife;
 
     private bool isInit = false;
 
     void Start()
     {
-        text.gameObject.SetActive(false);
-        fillBar.gameObject.SetActive(false);
-        fullLife.gameObject.SetActive(false);
+        _Text.gameObject.SetActive(false);
+        FillBar.gameObject.SetActive(false);
+        FullLife.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-
-        //if (fillBar == null)
-        //{
-        //    fillBar = GameObject.Find("LoadingLifeObject");
-        //    if (fillBar != null)
-        //        fillBar.SetActive(false);
-        //}
-
-        //if (fullLife == null)
-        //{
-        //    fullLife = GameObject.Find("LifeFull");
-        //    if (fullLife != null)
-        //        fullLife.SetActive(false);
-        //}
-
-        //if (text == null)
-        //{
-        //    text = GameObject.Find("PressE");
-        //    if(text != null)
-        //        text.SetActive(false);
-
-        //}
-
         if (Player == null)
         {
             Player = GameObject.Find("Player");
@@ -77,15 +54,15 @@ public class MedKitComp : MonoBehaviour
             //if the player's ammo over 200, active the canva full ammo
             if (other.gameObject.GetComponent<HpManager>().Hp >= 100)
             {
-                fullLife.gameObject.SetActive(true);
+                FullLife.gameObject.SetActive(true);
             }
 
             //if the player's ammo below 200, active canva (press E), and load the timer
             if (other.gameObject.GetComponent<HpManager>().Hp < 100)
             {
-                fullLife.gameObject.SetActive(false);
+                FullLife.gameObject.SetActive(false);
                 IsInTrigger = true;
-                text.gameObject.SetActive(true);
+                _Text.gameObject.SetActive(true);
                 CheckPressedTime();
             }
         }
@@ -115,18 +92,18 @@ public class MedKitComp : MonoBehaviour
     //if collision exit, unload canvas, and set IsInTrigger to false
         IsInTrigger = false;
 
-        fullLife.gameObject.SetActive(false);
-        fillBar.gameObject.SetActive(false);
-        text.gameObject.SetActive(false);
+        FullLife.gameObject.SetActive(false);
+        FillBar.gameObject.SetActive(false);
+        _Text.gameObject.SetActive(false);
 
 
         //if leaving zone while pressing E, reset timer and unload canvas 
         if (Input.GetButton("ButtonX"))
         {
             Timer = 0;
-            fullLife.gameObject.SetActive(false);
-            fillBar.gameObject.SetActive(false);
-            text.gameObject.SetActive(false);
+            FullLife.gameObject.SetActive(false);
+            FillBar.gameObject.SetActive(false);
+            _Text.gameObject.SetActive(false);
         }
         }
     
@@ -142,7 +119,7 @@ public class MedKitComp : MonoBehaviour
             if (IsKeyPressed)
             {
                 //if KeyPressed, active the canva and increase Time to Timer
-                fillBar.gameObject.SetActive(true);
+                FillBar.gameObject.SetActive(true);
                 Timer += Time.deltaTime;
 
                 //set KeyPressed to false to check if timer if over 1f
@@ -164,8 +141,8 @@ public class MedKitComp : MonoBehaviour
                 Player.GetComponent<HpManager>().Hp = 100;
 
                 //Canvas disabled
-                text.gameObject.SetActive(false);
-                fillBar.gameObject.SetActive(false);
+                _Text.gameObject.SetActive(false);
+                FillBar.gameObject.SetActive(false);
 
                 //Set canBeDestroyed to true to destroy the object in Update() 
                 canBeDestroyed = true;
@@ -176,8 +153,8 @@ public class MedKitComp : MonoBehaviour
         {
 
             //if E is up, all canvas disabled and Timer reset
-            text.gameObject.SetActive(false);
-            fillBar.gameObject.SetActive(false);
+            _Text.gameObject.SetActive(false);
+            FillBar.gameObject.SetActive(false);
             Timer = 0;
             IsKeyPressed = true;
         }
@@ -185,7 +162,7 @@ public class MedKitComp : MonoBehaviour
         if (Input.GetButton("ButtonX") && !IsInTrigger)
         {
             //if E pressed and player leaving zone, unload fillBar
-            fillBar.gameObject.SetActive(false);
+            FillBar.gameObject.SetActive(false);
         }
 
         return canBeDestroyed;

@@ -5,20 +5,20 @@ using UnityEngine.UI;
 
 public class Waypoint : MonoBehaviour
 {
-    public Image img;
+    public Image Img;
 
-    public GameObject player;
+    public GameObject Player;
     private GameObject ZoneWall;
 
-    public Text meter;
+    public Text Meter;
 
-    public Vector3 offset;
+    public Vector3 Offset;
 
     private void Start()
     {
         //Get ZoneWall to have access to CenterZone + set offset to 1000
         ZoneWall = GameObject.Find("ZoneWall");
-        offset.y = 1000;
+        Offset.y = 1000;
     }
     void Update()
     {
@@ -28,22 +28,22 @@ public class Waypoint : MonoBehaviour
 
         //print direction point only if center zone is set
         if (centerZone == Vector3.zero)
-            img.gameObject.SetActive(false); 
+            Img.gameObject.SetActive(false); 
         else
-            img.gameObject.SetActive(true);
+            Img.gameObject.SetActive(true);
 
 
         //Those four lines permit to the waypoint to not leave the screen
-        float minX = img.GetPixelAdjustedRect().width / 2;
+        float minX = Img.GetPixelAdjustedRect().width / 2;
         float maxX = Screen.width - minX;
 
-        float minY = img.GetPixelAdjustedRect().height / 2;
+        float minY = Img.GetPixelAdjustedRect().height / 2;
         float maxY = Screen.height - minY;
 
         //Set to pos the position where i want to place the waypoint
-        Vector2 pos = Camera.main.WorldToScreenPoint(centerZone + offset);
+        Vector2 pos = Camera.main.WorldToScreenPoint(centerZone + Offset);
 
-        if(Vector3.Dot((centerZone - player.transform.position), player.transform.forward) < 0)
+        if(Vector3.Dot((centerZone - Player.transform.position), Player.transform.forward) < 0)
         {
             //Target behind the player
             if (pos.x < Screen.width / 2)
@@ -56,9 +56,9 @@ public class Waypoint : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
-        img.transform.position = pos;
+        Img.transform.position = pos;
 
         //Print to the UI, distance between player and Waypoint/center of zone
-        meter.text = ((int)Vector3.Distance(centerZone, player.transform.position)).ToString() + "m";
+        Meter.text = ((int)Vector3.Distance(centerZone, Player.transform.position)).ToString() + "m";
     }
 }

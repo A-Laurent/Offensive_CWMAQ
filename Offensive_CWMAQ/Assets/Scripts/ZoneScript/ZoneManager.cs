@@ -8,8 +8,8 @@ public class ZoneManager : MonoBehaviour
 
     private float radius;
     private float shrinkRadius;
-    private float timeToShrink = 5f;
-    private float timeBeforeShrink=10f;
+    private float timeToShrink = 60f;
+    private float timeBeforeShrink=60f;
     private float istimeToSearch =0f;
     
 
@@ -25,6 +25,7 @@ public class ZoneManager : MonoBehaviour
 
 
     private bool DoOnceResearch = true;
+    private bool IsZoneDefine = false;
     
 
     // Start is called before the first frame update
@@ -36,6 +37,7 @@ public class ZoneManager : MonoBehaviour
         Interior.SetActive(false);
         Exterior.SetActive(false);
         //
+        IsZoneDefine = false;
     }
 
 
@@ -44,10 +46,10 @@ public class ZoneManager : MonoBehaviour
     {
         istimeToSearch += Time.deltaTime;
         timeBeforeShrink -= Time.deltaTime;
-
+        Debug.Log(timeBeforeShrink);
 
         // if it's the time to create the first zone and it's not done do it //
-        if (istimeToSearch > 60f && DoOnceResearch)
+        if (istimeToSearch > 15f && DoOnceResearch)
         {
             // Get the all the players alive//
             GameObject[] alivePlayers = GameObject.FindGameObjectsWithTag("Enemy");
@@ -81,16 +83,18 @@ public class ZoneManager : MonoBehaviour
             Interior.SetActive(true);
             Exterior.SetActive(true);
             //
+            IsZoneDefine = true;
             DoOnceResearch = false;
         }
         // set the center of the zone //
-        ZoneWall.transform.position = centerposition;
+        ZoneWall.transform.position = centerposition + new Vector3(0f,-20f,0f);
         //
 
         // if the radius of the zone is equal to the next radius zone set a new radius to the next zone //
-        if (radius-shrinkRadius<=0)
+        if (radius-shrinkRadius<=0 && ZoneDefine())
         {
-            timeBeforeShrink = 10f;
+            Debug.Log("nex zone");
+            timeBeforeShrink = 60;
             shrinkRadius = radius / 2;
         }
         //
@@ -105,7 +109,7 @@ public class ZoneManager : MonoBehaviour
         }
         //
 
-        ZoneWall.transform.localScale = new Vector3((radius*0.01f), 1, (radius*0.01f));
+        ZoneWall.transform.localScale = new Vector3((radius*0.01f), 4, (radius*0.01f));
         
     }
 
@@ -149,4 +153,8 @@ public class ZoneManager : MonoBehaviour
         return false;
     }
     
+    public bool ZoneDefine()
+    {
+        return IsZoneDefine; 
+    }
 }

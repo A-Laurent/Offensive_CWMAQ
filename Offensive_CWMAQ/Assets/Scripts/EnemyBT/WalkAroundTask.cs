@@ -33,7 +33,13 @@ public class WalkAroundTask : Node
         {
             _selfAgent.destination = NextPos;
 
-            _selfAnimator.SetBool("WalkFr", false);
+            _selfAnimator.SetBool("WalkFr", true);
+        }
+        else if (!_selfAgent.hasPath && !ZoneWall.GetComponent<ZoneManager>().ZoneDefine())
+        {
+
+            _selfAgent.destination = NextPos;
+            _selfAnimator.SetBool("WalkFr", true);
         }
 
         _selfAgent.isStopped = false;

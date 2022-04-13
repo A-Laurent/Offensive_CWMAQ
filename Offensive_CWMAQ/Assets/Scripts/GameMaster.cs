@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameMaster : MonoBehaviour
 
     public float Timer;
     public int UITimer;
+
+    public Text RankText;
+    public Text KillsText;
 
     public GameObject[] playerAlive;
 
@@ -34,5 +38,8 @@ public class GameMaster : MonoBehaviour
         {
             IsPlayerWin = true;
         }
+
+        KillsText.text = "Kills : " + Kills.ToString();
+        RankText.text = playerAlive.Length.ToString() + "/100";
     }
 }

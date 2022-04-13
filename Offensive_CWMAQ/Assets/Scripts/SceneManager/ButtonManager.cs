@@ -28,6 +28,6 @@ public class ButtonManager : MonoBehaviour
 
     public void Resume()
     {
-        Player.GetComponent<Movement>().IsMenu = false;
+        Player.GetComponent<PauseComponent>().IsMenu = false;
     }
 }

@@ -30,6 +30,8 @@ public class EndComponent : MonoBehaviour
     public GameObject Titles;
     public GameObject ReturnToMenu;
     public GameObject Credits;
+    public GameObject RankTextIG;
+    public GameObject KillTextIG;
 
     public GameObject Scores;
     public GameObject Kills;
@@ -116,7 +118,8 @@ public class EndComponent : MonoBehaviour
         PressE.SetActive(false);
         LoadingObject.SetActive(false);
         AmmoFull.SetActive(false);
-
+        RankTextIG.SetActive(false);
+        KillTextIG.SetActive(false);
 
         //Disable all UI canvas 
         Ammos.SetActive(false);

@@ -18,13 +18,13 @@ public class VisionInZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ZoneWall.GetComponent<ZoneManager>().InZone(transform.position))
+        if (!ZoneWall.GetComponent<ZoneManager>().InZone(transform.position) && ZoneWall.GetComponent<ZoneManager>().ZoneDefine())
+        { 
+            Vision.gameObject.SetActive(true);
+        }
+        else 
         {
             Vision.gameObject.SetActive(false);
-        }
-        else
-        {
-            Vision.gameObject.SetActive(true);
         }
     }
 }

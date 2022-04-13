@@ -52,9 +52,9 @@ public class MedKitComp : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+
         if (other.gameObject.GetComponent<HpManager>() && other.gameObject.GetComponent<Movement>())
         {
-
             //if the player's ammo over 200, active the canva full ammo
             if (other.gameObject.GetComponent<HpManager>().Hp >= 100)
             {
@@ -71,28 +71,21 @@ public class MedKitComp : MonoBehaviour
             }
         }
 
+
         //If the collision that we are in is an ammo (HpManager) && we are the BOT
 
-        if (other.gameObject.GetComponent<HpManager>() && other.gameObject.GetComponent<EnemyBT>())
+        if (other.gameObject.GetComponent<EnemyBT>())
         {
-
             //if bot life is full, do nothing
             if (other.gameObject.GetComponent<HpManager>().Hp >= 100)
                 return;
 
-            //if bot life is bellow 100, launch timer
-            if (other.gameObject.GetComponent<HpManager>().Hp < 100)
-            {
-                EnemyTimer += Time.deltaTime;
+            other.gameObject.GetComponent<HpManager>().Hp = 100;
+            GameObject.Destroy(this.gameObject);
 
-                //if timer > 2f, refill to 100 and destroy the life_obj
-                if (EnemyTimer > 2f)
-                {
-                    other.gameObject.GetComponent<HpManager>().Hp = 100;
-                    GameObject.Destroy(this.gameObject);
-                }
-            }
         }
+
+
     }
 
 
@@ -108,7 +101,7 @@ public class MedKitComp : MonoBehaviour
 
 
         //if leaving zone while pressing E, reset timer and unload canvas 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetButton("ButtonX"))
         {
             Timer = 0;
             fullLife.SetActive(false);
@@ -121,7 +114,7 @@ public class MedKitComp : MonoBehaviour
     //This function create a Timer that correspond to the pressed Time of E 
     public bool CheckPressedTime()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetButton("ButtonX"))
         {
 
             if (IsKeyPressed)
@@ -157,7 +150,7 @@ public class MedKitComp : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetButtonUp("ButtonX"))
         {
 
             //if E is up, all canvas disabled and Timer reset
@@ -167,7 +160,7 @@ public class MedKitComp : MonoBehaviour
             IsKeyPressed = true;
         }
 
-        if (Input.GetKey(KeyCode.E) && !IsInTrigger)
+        if (Input.GetButton("ButtonX") && !IsInTrigger)
         {
             //if E pressed and player leaving zone, unload fillBar
             fillBar.SetActive(false);

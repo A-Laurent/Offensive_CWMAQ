@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
+
 
 public class Movement : MonoBehaviour
 {
@@ -15,16 +15,13 @@ public class Movement : MonoBehaviour
     private float delay;
     public float delayBetweenStep;
 
-    public bool IsMenu = false;
+    public bool CanMove = true;
 
-    public GameObject PauseMenuImg;
-    public GameObject PauseText;
-    public GameObject ResumeBTN;
-    public GameObject QUITBtn;
+
 
     public GameObject GameMaster;
 
-    public EventSystem M_EventSystem;
+    
 
     CharacterController Cc;
 
@@ -37,11 +34,6 @@ public class Movement : MonoBehaviour
     
     void Start()
     {
-        PauseMenuImg.SetActive(false);
-        PauseText.SetActive(false);
-        ResumeBTN.SetActive(false);
-        QUITBtn.SetActive(false);
-
         //suppr cursor
         Cursor.visible = false;
         //Get Charactere controler component
@@ -51,39 +43,8 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Cancel") && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)
-        {
-
-            IsMenu = true;
-            Time.timeScale = 0f;
-            M_EventSystem.SetSelectedGameObject(ResumeBTN);
-
-        }
-
-        if (IsMenu && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)
-        {
-
-            PauseMenuImg.SetActive(true);
-            PauseText.SetActive(true);
-            ResumeBTN.SetActive(true);
-            QUITBtn.SetActive(true);
-
-
-        }
-
-        if (!IsMenu && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)
-        { 
-
-                Time.timeScale = 1f;
-
-                PauseMenuImg.SetActive(false);
-                PauseText.SetActive(false);
-                ResumeBTN.SetActive(false);
-                QUITBtn.SetActive(false);
-
-                Movements();
-            
-        }
+        if(CanMove)
+            Movements();
 
     }
 

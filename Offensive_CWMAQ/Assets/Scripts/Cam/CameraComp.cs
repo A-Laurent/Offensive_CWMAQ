@@ -17,7 +17,7 @@ public class CameraComp : MonoBehaviour
     void Update()
     {
 
-        if (Player.GetComponent<Movement>().IsMenu || GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
+        if (Player.GetComponent<PauseComponent>().IsMenu || GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
             return;
 
         //Get Joystick Names

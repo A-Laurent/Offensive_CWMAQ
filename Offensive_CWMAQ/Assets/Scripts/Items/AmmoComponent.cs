@@ -78,7 +78,7 @@ public class AmmoComponent : MonoBehaviour
 
         if (other.gameObject.GetComponent<AmmoManager>() && other.gameObject.GetComponent<EnemyBT>())
         {
-
+            Debug.Log("oui");
             //if bot ammo are full, do nothing
             if (other.gameObject.GetComponent<AmmoManager>().Ammo >= 200)
                 return;
@@ -86,19 +86,13 @@ public class AmmoComponent : MonoBehaviour
             //if bot ammo bellow 200, launch timer
             if (other.gameObject.GetComponent<AmmoManager>().Ammo < 200)
             {
-                EnemyTimer += Time.deltaTime;
-
-
-                //if timer > 2f, reload to 200 and destroy the ammo
-                if (EnemyTimer > 2f)
-                {
-                    other.gameObject.GetComponent<AmmoManager>().Ammo = 200;
-                    GameObject.Destroy(gameObject);
-                }
+                other.gameObject.GetComponent<AmmoManager>().Ammo = 100;
+                GameObject.Destroy(this.gameObject);
             }
         }
-
     }
+
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -161,7 +155,7 @@ public class AmmoComponent : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E) || Input.GetButtonUp("ButtonX"))
         {
 
             //if E is up, all canvas disabled and Timer reset
@@ -171,7 +165,7 @@ public class AmmoComponent : MonoBehaviour
             IsKeyPressed = true;
         }
 
-        if(Input.GetKey(KeyCode.E) && !IsInTrigger)
+        if(Input.GetKey(KeyCode.E) && !IsInTrigger || Input.GetButton("ButtonX") && !IsInTrigger)
         {
             //if E pressed and player leaving zone, unload fillBar
             fillBar.SetActive(false);

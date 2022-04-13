@@ -49,7 +49,7 @@ public class AmmoManager : MonoBehaviour
     {
 
         //Check if E is pressed in the trigger zone
-        if (Input.GetKey(KeyCode.E) && IsInTrigger|| Input.GetButton("ButtonX") && IsInTrigger)
+        if (Input.GetKey(KeyCode.E) && IsInTrigger || Input.GetButton("ButtonX") && IsInTrigger)
         {
 
             //if yes, timerUI increase the deltaTime
@@ -67,7 +67,7 @@ public class AmmoManager : MonoBehaviour
             }
         }
         //if E is UP, TimerUI reset
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E) || Input.GetButtonUp("ButtonX"))
         {
             TimerUI = 0;
             IsKeyPressed = true;

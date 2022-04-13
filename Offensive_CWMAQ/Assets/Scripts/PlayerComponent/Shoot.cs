@@ -22,7 +22,6 @@ public class Shoot : MonoBehaviour
 
         if (GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
             return;
-        Debug.Log(Input.GetAxis("TriggerRT"));
         RaycastHit hit;
         //Shoot with Left click
         if (Input.GetKey(KeyCode.Mouse0)|| Input.GetAxis("TriggerRT") > 0.2)

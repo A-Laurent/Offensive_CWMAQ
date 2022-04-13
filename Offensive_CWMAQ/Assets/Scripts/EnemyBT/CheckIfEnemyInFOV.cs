@@ -66,7 +66,7 @@ public class CheckIfEnemyInFOV : Node
        
         // The Ai check if the Raycast hit the enemy only if he is in the FOV an set in the data "target" equal to the transform of the  raycast hit//
         RaycastHit hit;
-        if (Physics.Raycast(origin, newTargetPos - origin, out hit, 80f)  && angle < 70.0f)
+        if (Physics.Raycast(origin, newTargetPos - origin, out hit, 80f)  && angle < 70.0f && _selfTransform.GetComponent<HpManager>().Hp > 50 && _selfTransform.GetComponent<AmmoManager>().Ammo > 100)
         {
             
             if (hit.transform.CompareTag("Enemy"))

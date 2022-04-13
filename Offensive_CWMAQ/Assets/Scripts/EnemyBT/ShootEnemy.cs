@@ -63,6 +63,7 @@ public class ShootEnemy : Node
                 _selfAnimator.SetBool("WalkFr", false);
                 _selfAnimator.SetBool("Shoot", true);
                 _selfTransform.LookAt(target.position);
+                _selfTransform.GetComponent<AmmoManager>().Ammo -= 1;
                 hit.transform.GetComponent<HpManager>().Hp -= 10;
                 timer = 0;
                 state = NodeState.RUNNIG;

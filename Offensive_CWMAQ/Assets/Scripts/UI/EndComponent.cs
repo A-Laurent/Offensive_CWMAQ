@@ -7,8 +7,9 @@ using UnityEngine.EventSystems;
 public class EndComponent : MonoBehaviour
 {
     private GameObject GameMaster;
-    public GameObject M_Canva;
 
+    //Need Canva to acces the button manager
+    public GameObject EndObj;
 
     //All canvas to desactivate if games end
 
@@ -38,6 +39,7 @@ public class EndComponent : MonoBehaviour
     public GameObject Kills;
     public GameObject GameTime;
 
+    //Event system to manage controller in menu
     public EventSystem M_EventSystem;
 
     private bool ActiveButton;
@@ -47,14 +49,10 @@ public class EndComponent : MonoBehaviour
     private float Timer;
     private bool DoOnce = true;
 
-    // Start is called before the first frame update
     void Start()
     {
-
         //Get GameMaster
         GameMaster = GameObject.Find("GameMaster");
-
-
 
         //Disable all canvas 
         DiedText.SetActive(false);
@@ -70,12 +68,10 @@ public class EndComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //Update playerInfos to print them on the EndScreen
         Scores.GetComponent<UnityEngine.UI.Text>().text = GameMaster.GetComponent<GameMaster>().playerAlive.Length.ToString();
         Kills.GetComponent<UnityEngine.UI.Text>().text = GameMaster.GetComponent<GameMaster>().Kills.ToString();
         GameTime.GetComponent<UnityEngine.UI.Text>().text = GameMaster.GetComponent<GameMaster>().UITimer.ToString() + "sec";
-
 
         if (GameMaster.GetComponent<GameMaster>().IsPlayerDead)
         {
@@ -90,9 +86,13 @@ public class EndComponent : MonoBehaviour
             {     
                 ReturnToMenu.SetActive(true);
                 Credits.SetActive(true);
+
+                //Frezze player only onetime
                 if(DoOnce)
                     Time.timeScale = 0f;
-                if (M_Canva.GetComponent<ButtonManager>().CanResetTimeScale)
+
+                //if player hit GoCreditButton or ReturnMenuButton, unfreeze game
+                if (EndObj.GetComponent<ButtonManager>().CanResetTimeScale)
                     Time.timeScale = 1f;
             }
                 
@@ -110,9 +110,12 @@ public class EndComponent : MonoBehaviour
             {
                 Credits.SetActive(true);
                 ReturnToMenu.SetActive(true);
-                if(DoOnce)
+                //Frezze player only onetime
+                if (DoOnce)
                     Time.timeScale = 0f;
-                if (M_Canva.GetComponent<ButtonManager>().CanResetTimeScale)
+
+                //if player hit GoCreditButton or ReturnMenuButton, unfreeze game
+                if (EndObj.GetComponent<ButtonManager>().CanResetTimeScale)
                     Time.timeScale = 1f;
             }
                 
@@ -126,8 +129,6 @@ public class EndComponent : MonoBehaviour
         PressE.SetActive(false);
         LoadingObject.SetActive(false);
         AmmoFull.SetActive(false);
-        RankTextIG.SetActive(false);
-        KillTextIG.SetActive(false);
 
         //Disable all UI canvas 
         Ammos.SetActive(false);
@@ -135,6 +136,8 @@ public class EndComponent : MonoBehaviour
         HealthBarBG.SetActive(false);
         HealthBarBorder.SetActive(false);
         CursorIG.SetActive(false);
+        RankTextIG.SetActive(false);
+        KillTextIG.SetActive(false);
 
         //Activate all canvas for EndGame
         RawImage.SetActive(true);
@@ -143,12 +146,16 @@ public class EndComponent : MonoBehaviour
 
         if (i == 0)
         {
+            //Active Cursor and set firstselectedobj to credits (controller)
             Cursor.visible = true;
             M_EventSystem.SetSelectedGameObject(Credits);
+
+            //Do only this one time
             i = 14;
         }
     }
 
+    //This is a timer to print buttons after 2f after games end
     private bool ActiveEndButton()
     {
         Timer += Time.deltaTime;

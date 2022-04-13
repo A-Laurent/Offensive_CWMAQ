@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour
 {
-    //Crating PlayerInfos
+    //Creating PlayerInfos
 
     public int Kills;
+    public int UITimer;
+
     public bool IsPlayerDead = false;
     public bool IsPlayerWin = false;
 
     public float Timer;
-    public int UITimer;
-
+    
     public Text RankText;
     public Text KillsText;
 
@@ -39,6 +40,7 @@ public class GameMaster : MonoBehaviour
             IsPlayerWin = true;
         }
 
+        //Print NB_kills and rank on UI
         KillsText.text = "Kills : " + Kills.ToString();
         RankText.text = playerAlive.Length.ToString() + "/100";
     }

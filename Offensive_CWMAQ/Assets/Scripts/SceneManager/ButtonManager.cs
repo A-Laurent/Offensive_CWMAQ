@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
     public GameObject Player;
+
     public bool CanResetTimeScale = false;
 
-    private void Update()
-    {
-    }
     public void ReturnMenu()
     {
         CanResetTimeScale = true;

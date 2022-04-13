@@ -8,51 +8,29 @@ public class AmmoComponent : MonoBehaviour
     private int i;
 
     private float Timer;
-    private float EnemyTimer;
 
     private bool IsInTrigger;
     private bool IsKeyPressed;
-
     private bool canBeDestroyed = false;
 
     private GameObject Player;
+    public GameObject fillBar;
 
     public Text text;
-    public GameObject fillBar;
     public Text fullAmmo;
-
-    private bool isInit = false;
 
     void Start()
     {
+
+        //Set FillBarUI to false
         text.gameObject.SetActive(false);
         fillBar.gameObject.SetActive(false);
         fullAmmo.gameObject.SetActive(false);
+
     }
 
     void Update()
     {
-        //if (fillBar == null)
-        //    {
-        //        fillBar = GameObject.Find("LoadingAmmoObject");
-        //        if (fillBar != null)
-        //            fillBar.SetActive(false);
-        //    }
-
-        //if (fullAmmo == null)
-        //{
-        //    fullAmmo = GameObject.Find("AmmoFull");
-        //    if (fullAmmo != null)
-        //        fullAmmo.SetActive(false);
-        //}
-
-        //if (text == null)
-        //{
-        //    text = GameObject.Find("PressE");
-        //    if (text != null)
-        //        text.SetActive(false);
-
-        //}
 
         if (Player == null)
         {
@@ -119,7 +97,7 @@ public class AmmoComponent : MonoBehaviour
 
 
             //if leaving zone while pressing E, reset timer and unload canvas 
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetButton("ButtonX"))
             {
                 Timer = 0;
                 fullAmmo.gameObject.SetActive(false);

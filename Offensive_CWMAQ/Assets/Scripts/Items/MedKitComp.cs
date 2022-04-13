@@ -20,34 +20,47 @@ public class MedKitComp : MonoBehaviour
     private GameObject fillBar;
     private GameObject fullLife;
 
+    private bool isInit = false;
+
     void Start()
     {
-        text = GameObject.Find("Appuie sur E");
-        fillBar = GameObject.Find("LoadingLifeObject");
-        fullLife = GameObject.Find("LifeFull");
-
-        //Search player to get HpManager  
-        Player = GameObject.Find("Player");
-        i = 0;
 
     }
 
     private void Update()
     {
 
+        if (fillBar == null)
+        {
+            fillBar = GameObject.Find("LoadingLifeObject");
+            if (fillBar != null)
+                fillBar.SetActive(false);
+        }
+
+        if (fullLife == null)
+        {
+            fullLife = GameObject.Find("LifeFull");
+            if (fullLife != null)
+                fullLife.SetActive(false);
+        }
+
+        if (text == null)
+        {
+            text = GameObject.Find("PressE");
+            if(text != null)
+                text.SetActive(false);
+
+        }
+
+        if(Player == null)
+        {
+            Player = GameObject.Find("Player");
+        }
+        //Search player to get HpManager  
+
         //Destroy this.gameobject if Timer if over 1f
         if (canBeDestroyed)
             GameObject.Destroy(gameObject);
-
-
-        if (i == 0)
-        {
-            //Set all canvas to false
-            text.SetActive(false);
-            fillBar.SetActive(false);
-            fullLife.SetActive(false);
-            i = 14;
-        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -91,23 +104,26 @@ public class MedKitComp : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
-        //if collision exit, unload canvas, and set IsInTrigger to false
-        IsInTrigger = false;
-
-        fullLife.SetActive(false);
-        fillBar.SetActive(false);
-        text.SetActive(false);
-
-
-        //if leaving zone while pressing E, reset timer and unload canvas 
-        if (Input.GetButton("ButtonX"))
+        if(other.GetComponent<Movement>())
         {
-            Timer = 0;
+            //if collision exit, unload canvas, and set IsInTrigger to false
+            IsInTrigger = false;
+
             fullLife.SetActive(false);
             fillBar.SetActive(false);
             text.SetActive(false);
+
+
+            //if leaving zone while pressing E, reset timer and unload canvas 
+            if (Input.GetButton("ButtonX"))
+            {
+                Timer = 0;
+                fullLife.SetActive(false);
+                fillBar.SetActive(false);
+                text.SetActive(false);
+            }
         }
+    
     }
 
 

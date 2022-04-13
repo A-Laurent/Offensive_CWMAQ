@@ -71,7 +71,8 @@ public class MenuManager : MonoBehaviour
     //Load Map1
     public void Carte1()
     {
-        SceneManager.LoadScene("Carte1");
+        
+        SceneManager.LoadScene("Carte1", LoadSceneMode.Single);
     }
     
     //Load Map2
@@ -105,7 +106,9 @@ public class MenuManager : MonoBehaviour
     //Load MenuScene
     public void ReturnMenu()
     {
+        
         SceneManager.LoadScene("MenuScene");
+        
     }
 
     //LoadCredits

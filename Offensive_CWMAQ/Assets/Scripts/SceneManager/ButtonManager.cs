@@ -17,6 +17,7 @@ public class ButtonManager : MonoBehaviour
     public void ReturnMenu()
     {
         CanResetTimeScale = true;
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("MenuScene");
 
     }

@@ -20,34 +20,46 @@ public class AmmoComponent : MonoBehaviour
     private GameObject fillBar;
     private GameObject fullAmmo;
 
+    private bool isInit = false;
+
     void Start()
     {
-        text = GameObject.Find("Appuie sur E");
-        fillBar = GameObject.Find("LoadingAmmoObject");
-        fullAmmo = GameObject.Find("AmmoFull");
-
-        //Search player to get AmmoManager  
-        Player = GameObject.Find("Player");
-        i = 0;
 
     }
 
     void Update()
     {
+        if (fillBar == null)
+            {
+                fillBar = GameObject.Find("LoadingAmmoObject");
+                if (fillBar != null)
+                    fillBar.SetActive(false);
+            }
 
-        //Destroy this.gameobject if Timer if over 1f
+        if (fullAmmo == null)
+        {
+            fullAmmo = GameObject.Find("AmmoFull");
+            if (fullAmmo != null)
+                fullAmmo.SetActive(false);
+        }
+
+        if (text == null)
+        {
+            text = GameObject.Find("PressE");
+            if (text != null)
+                text.SetActive(false);
+
+        }
+
+        if (Player == null)
+        {
+            Player = GameObject.Find("Player");
+        }
+
         if (canBeDestroyed)
             GameObject.Destroy(gameObject);
 
-
-        if(i == 0)
-        {
-            //Set all canvas to false
-            text.SetActive(false);
-            fillBar.SetActive(false);
-            fullAmmo.SetActive(false);
-            i = 14;
-        }
+        Debug.Log(fullAmmo);
     }
 
     private void OnTriggerStay(Collider other)
@@ -96,23 +108,26 @@ public class AmmoComponent : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
-        //if collision exit, unload canvas, and set IsInTrigger to false
-        IsInTrigger = false;
-
-        fullAmmo.SetActive(false);
-        fillBar.SetActive(false);
-        text.SetActive(false);
-
-
-        //if leaving zone while pressing E, reset timer and unload canvas 
-        if(Input.GetKey(KeyCode.E))
+        if(other.GetComponent<Movement>())
         {
-            Timer = 0;
+            //if collision exit, unload canvas, and set IsInTrigger to false
+            IsInTrigger = false;
+
             fullAmmo.SetActive(false);
             fillBar.SetActive(false);
             text.SetActive(false);
+
+
+            //if leaving zone while pressing E, reset timer and unload canvas 
+            if (Input.GetKey(KeyCode.E))
+            {
+                Timer = 0;
+                fullAmmo.SetActive(false);
+                fillBar.SetActive(false);
+                text.SetActive(false);
+            }
         }
+
     }
 
 

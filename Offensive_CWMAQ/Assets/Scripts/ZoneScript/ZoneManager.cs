@@ -130,9 +130,18 @@ public class ZoneManager : MonoBehaviour
     }
     //
 
+    public bool InNextZone(Vector3 position)
+    {
+        if (DistZone(position) < shrinkRadius)
+        {
+            return true;
+        }
+
+        return false;
+    }
     public bool InZone(Vector3 position)
     {
-        if (DistZone(position) < shrinkRadius) 
+        if (DistZone(position) < radius) 
         {
             return true;
         }

@@ -74,6 +74,7 @@ public class CheckIfEnemyInFOV : Node
                 ClearData("target");
                 _selfAgent.isStopped = true;
                 parent.parent.parent.SetData("target", hit.transform);
+                
                 state = NodeState.SUCCESS;
                 return state;
             }

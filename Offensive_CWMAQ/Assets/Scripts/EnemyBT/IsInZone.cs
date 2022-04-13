@@ -42,7 +42,7 @@ public class IsInZone : Node
             state = NodeState.SUCCESS;
             return state;
         }
-        if (ZoneWall.GetComponent<ZoneManager>().InZone(_selfTransform.position))
+        if (ZoneWall.GetComponent<ZoneManager>().InNextZone(_selfTransform.position))
         {
 
             _selfAnimator.SetBool("WalkFr", false);

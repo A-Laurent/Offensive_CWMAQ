@@ -71,10 +71,12 @@ public class Shoot : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse1) || Input.GetAxis("TriggerLT")>0.2)
         {
             CamComp.GetComponent<CameraComp>().Aiming = true;
+            CamComp.GetComponent<CameraComp>().Sensitivity = 2.0f;
         }
         else
         {
             CamComp.GetComponent<CameraComp>().Aiming = false;
+            CamComp.GetComponent<CameraComp>().Sensitivity = 4.0f;
         }
     }
 }

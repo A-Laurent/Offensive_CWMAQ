@@ -17,7 +17,7 @@ public class CameraComp : MonoBehaviour
     void Update()
     {
 
-        if (GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
+        if (Player.GetComponent<Movement>().IsMenu || GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
             return;
 
         //Get Joystick Names
@@ -38,8 +38,7 @@ public class CameraComp : MonoBehaviour
         //where i indicates the controller number
         Yaxe += Input.GetAxis("Mouse X") * Sensitivity;
         Xaxe -= Input.GetAxis("Mouse Y") * Sensitivity;
-
-        Debug.Log(Yaxe);
+        
         
 
         //Define the target witch will the camera turn around

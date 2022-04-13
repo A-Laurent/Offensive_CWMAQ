@@ -22,6 +22,8 @@ public class Movement : MonoBehaviour
     public GameObject ResumeBTN;
     public GameObject QUITBtn;
 
+    public GameObject GameMaster;
+
     public EventSystem M_EventSystem;
 
     CharacterController Cc;
@@ -49,33 +51,40 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.Escape))
+        if (Input.GetButton("Cancel") && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)
         {
+
             IsMenu = true;
             Time.timeScale = 0f;
             M_EventSystem.SetSelectedGameObject(ResumeBTN);
+
         }
 
-        if(IsMenu)
+        if (IsMenu && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)
         {
+
             PauseMenuImg.SetActive(true);
             PauseText.SetActive(true);
             ResumeBTN.SetActive(true);
             QUITBtn.SetActive(true);
+
+
         }
 
-        if(!IsMenu)
-        {
-            Time.timeScale = 1f;
+        if (!IsMenu && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)
+        { 
 
-            PauseMenuImg.SetActive(false);
-            PauseText.SetActive(false);
-            ResumeBTN.SetActive(false);
-            QUITBtn.SetActive(false);
+                Time.timeScale = 1f;
 
-            Movements();
+                PauseMenuImg.SetActive(false);
+                PauseText.SetActive(false);
+                ResumeBTN.SetActive(false);
+                QUITBtn.SetActive(false);
+
+                Movements();
+            
         }
-           
+
     }
 
     private void Movements()

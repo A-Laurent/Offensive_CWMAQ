@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class EndComponent : MonoBehaviour
 {
@@ -34,7 +35,10 @@ public class EndComponent : MonoBehaviour
     public GameObject Kills;
     public GameObject GameTime;
 
+    public EventSystem M_EventSystem;
+
     private bool ActiveButton;
+    private int i = 0;
 
     //Timer for make buttons appear
     private float Timer;
@@ -79,7 +83,7 @@ public class EndComponent : MonoBehaviour
 
             //Active buttons
             if (ActiveButton)
-            {
+            {     
                 ReturnToMenu.SetActive(true);
                 Credits.SetActive(true);
                 Time.timeScale = 0f;
@@ -125,6 +129,12 @@ public class EndComponent : MonoBehaviour
         RawImage.SetActive(true);
         Titles.SetActive(true);
         PlayerInfo.SetActive(true);
+
+        if (i == 0)
+        {
+            M_EventSystem.SetSelectedGameObject(Credits);
+            i = 14;
+        }
     }
 
     private bool ActiveEndButton()

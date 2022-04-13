@@ -14,9 +14,13 @@ public class SpawnBot : MonoBehaviour
         {   //Random on all the map for where the bot can spawn
             posX = Random.Range(50, 950);
             posZ = Random.Range(10, 450);
-            
+
+            NavMeshHit hit;
+
+            while (!NavMesh.SamplePosition(new Vector3(posX, 50, posZ), out hit, 100.0f, NavMesh.AllAreas)) ;
+
             //Instantiate them with a prefab
-            Instantiate(Botsprefab, new Vector3(posX, 20, posZ), Quaternion.identity);
+            Instantiate(Botsprefab, hit.position , Quaternion.identity);
         }
     }
 }

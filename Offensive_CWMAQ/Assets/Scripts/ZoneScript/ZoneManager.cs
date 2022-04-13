@@ -47,7 +47,7 @@ public class ZoneManager : MonoBehaviour
 
 
         // if it's the time to create the first zone and it's not done do it //
-        if (istimeToSearch > 2f && DoOnceResearch)
+        if (istimeToSearch > 60f && DoOnceResearch)
         {
             // Get the all the players alive//
             GameObject[] alivePlayers = GameObject.FindGameObjectsWithTag("Enemy");

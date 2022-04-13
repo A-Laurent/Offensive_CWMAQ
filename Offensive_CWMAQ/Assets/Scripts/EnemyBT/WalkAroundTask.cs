@@ -29,7 +29,7 @@ public class WalkAroundTask : Node
         Vector3 newPos = new Vector3(_selfTransform.position.x + randPos.x, _selfTransform.position.y, _selfTransform.position.z + randPos.y);
         Vector3 NextPos = new Vector3(newPos.x + _selfTransform.forward.x, newPos.y + _selfTransform.forward.y, newPos.z + _selfTransform.forward.z);
 
-        if (!_selfAgent.hasPath && ZoneWall.GetComponent<ZoneManager>().InZone(NextPos))
+        if (!_selfAgent.hasPath && ZoneWall.GetComponent<ZoneManager>().InNextZone(NextPos))
         {
             _selfAgent.destination = NextPos;
 

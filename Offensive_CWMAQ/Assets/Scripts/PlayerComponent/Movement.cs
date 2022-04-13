@@ -91,7 +91,7 @@ public class Movement : MonoBehaviour
         float speedY = Deplacements.y;
 
         //The sprint
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LJoyStickClick")) 
         {
             delayBetweenStep = delay / 2;
             Anim.SetBool("WalkFr", false);
@@ -111,7 +111,7 @@ public class Movement : MonoBehaviour
         Deplacements = z * speedZ + x * speedX;
 
         //The jump
-        if (Input.GetButton("Jump") && Cc.isGrounded)
+        if (Input.GetButton("Jump") && Cc.isGrounded||Input.GetButtonDown("ButtonA") &&Cc.isGrounded)
         {
             Anim.SetBool("WalkFr", false);
             Anim.SetBool("Jump", true);

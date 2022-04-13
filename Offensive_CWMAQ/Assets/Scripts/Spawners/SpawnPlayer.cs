@@ -8,6 +8,7 @@ public class SpawnPlayer : MonoBehaviour
     private float posZ;
     public void Start()
     {
+        //Ramdomize position for player spawn
         posX = Random.Range(50, 950);
         posZ = Random.Range(10, 450);
 

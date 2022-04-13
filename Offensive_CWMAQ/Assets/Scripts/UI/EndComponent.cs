@@ -70,7 +70,7 @@ public class EndComponent : MonoBehaviour
     {
 
         //Update playerInfos to print them on the EndScreen
-        Scores.GetComponent<UnityEngine.UI.Text>().text = GameMaster.GetComponent<GameMaster>().playerAlive.Length.ToString();
+        Scores.GetComponent<UnityEngine.UI.Text>().text = GameMaster.GetComponent<GameMaster>().PlayerAlive.Length.ToString();
         Kills.GetComponent<UnityEngine.UI.Text>().text = GameMaster.GetComponent<GameMaster>().Kills.ToString();
         GameTime.GetComponent<UnityEngine.UI.Text>().text = GameMaster.GetComponent<GameMaster>().UITimer.ToString() + "sec";
 

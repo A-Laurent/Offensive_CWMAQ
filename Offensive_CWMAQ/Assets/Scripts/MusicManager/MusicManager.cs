@@ -16,16 +16,16 @@ public class MusicManager : MonoBehaviour
     public AudioClip Shootclip;
     public AudioSource ZoneMusic;
     public AudioClip Zoneclip;
-    private GameObject Player;
-    private GameObject GameMaster;
+    private GameObject player;
+    private GameObject gameMaster;
     public bool PlayShootSound;
     public bool PlaySoundZone = false;
     private float nextFire;
-    private float FireRate = 0.1f;
+    private float fireRate = 0.1f;
     private void Start()
     {
-        Player = GameObject.Find("Player");
-        GameMaster = GameObject.Find("GameMaster");
+        player = GameObject.Find("Player");
+        gameMaster = GameObject.Find("GameMaster");
         i = 0;
         id = 0;
         ie = 0;
@@ -33,7 +33,7 @@ public class MusicManager : MonoBehaviour
     private void Update()
     {
         
-        if(GameMaster.GetComponent<GameMaster>().IsPlayerWin == true && i == 0)
+        if(gameMaster.GetComponent<GameMaster>().IsPlayerWin == true && i == 0)
         {
             i++;
             WinMusic.PlayOneShot(WinClip);
@@ -46,11 +46,11 @@ public class MusicManager : MonoBehaviour
         if (PlayShootSound == true && Time.time >nextFire)
         {
 
-            nextFire = Time.time + FireRate;
+            nextFire = Time.time + fireRate;
             ShootMusic.PlayOneShot(Shootclip);
         }
 
-        if (Player.GetComponent<HpManager>().PlayDeadSound == true && id == 0) 
+        if (player.GetComponent<HpManager>().PlayDeadSound == true && id == 0) 
         {
             id++;
             DiedSound.PlayOneShot(DiedClip);

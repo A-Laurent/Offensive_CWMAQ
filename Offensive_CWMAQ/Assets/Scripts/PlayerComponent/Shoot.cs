@@ -5,22 +5,22 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     public float FireRate = 0.1f;
-    public float nextFire;
+    public float NextFire;
     public float WeaponRange = 1000f;
     public CameraComp CamComp;
     public Camera TpsCam;
-    private GameObject GameMaster;
     public Animator Anim;
-    private GameObject MusicManager;
+    private GameObject gameMaster;
+    private GameObject musicManager;
     private void Start()
     {
-        GameMaster = GameObject.Find("GameMaster");
-        MusicManager = GameObject.Find("MusicManager");
+        gameMaster = GameObject.Find("GameMaster");
+        musicManager = GameObject.Find("MusicManager");
     }
     void Update()
     {
 
-        if (GameMaster.GetComponent<GameMaster>().IsPlayerDead || GameMaster.GetComponent<GameMaster>().IsPlayerWin)
+        if (gameMaster.GetComponent<GameMaster>().IsPlayerDead || gameMaster.GetComponent<GameMaster>().IsPlayerWin)
             return;
         RaycastHit hit;
         //Shoot with Left click
@@ -29,14 +29,14 @@ public class Shoot : MonoBehaviour
             if (GetComponent<AmmoManager>().Ammo >= 1)
             {
                 Anim.SetBool("Shoot", true);
-                if (Time.time > nextFire)
+                if (Time.time > NextFire)
                 {
                     //Shot fire
-                    MusicManager.GetComponent<MusicManager>().PlayShootSound = true;
+                    musicManager.GetComponent<MusicManager>().PlayShootSound = true;
 
                     GetComponent<AmmoManager>().Ammo -= 1;
                     //Duration between two fire 
-                    nextFire = Time.time + FireRate;
+                    NextFire = Time.time + FireRate;
 
                     //From where the ray with start 
                     Ray rayOrigin = TpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
@@ -50,7 +50,7 @@ public class Shoot : MonoBehaviour
                             hit.collider.GetComponent<HpManager>().Hp -= 10;
                             if (hit.collider.GetComponent<HpManager>().Hp <= 0)
                             {
-                                GameMaster.GetComponent<GameMaster>().Kills += 1;
+                                gameMaster.GetComponent<GameMaster>().Kills += 1;
                             }
                         }
                     }
@@ -61,7 +61,7 @@ public class Shoot : MonoBehaviour
         else
         {
 
-            MusicManager.GetComponent<MusicManager>().PlayShootSound = false;
+            musicManager.GetComponent<MusicManager>().PlayShootSound = false;
             
             //Animation
             Anim.SetBool("Shoot", false);

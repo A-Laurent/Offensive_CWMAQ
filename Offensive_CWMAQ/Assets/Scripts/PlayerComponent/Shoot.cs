@@ -47,6 +47,7 @@ public class Shoot : MonoBehaviour
                         //If it's a bot we kill
                         if (hit.collider.CompareTag("Enemy"))
                         {
+                            Debug.Log(hit.collider.GetComponent<HpManager>().Hp);
                             hit.collider.GetComponent<HpManager>().Hp -= 10;
                             if (hit.collider.GetComponent<HpManager>().Hp <= 0)
                             {

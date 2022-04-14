@@ -10,7 +10,7 @@ public class SpawnBot : MonoBehaviour
     public GameObject Botsprefab;
     void Start()
     {
-        for (int i = 0;i<99;i++) 
+        for (int i = 0;i<98;i++) 
         {   //Random on all the map for where the bot can spawn
             posX = Random.Range(50, 950);
             posZ = Random.Range(10, 450);

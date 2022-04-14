@@ -600,7 +600,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "LEAD DEVELOPER  :\n\n\nDEVELOPER \t\t  :\n\n\nSOURCES\t\t\t  :   "
+  m_Text: "LEAD DEVELOPER  :\n\n\nDEVELOPERS \t\t  :\n\n\nSOURCES\t\t\t  :   "
 --- !u!222 &1302488866
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -991,6 +991,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068235910abc94a46bf387f450de8fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  CanResetTimeScale: 0
 --- !u!1 &1999240301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,7 +1076,7 @@ MonoBehaviour:
 
 
     UNITY
-    ASSETS STORE'
+    ASSET STORE'
 --- !u!222 &1999240304
 CanvasRenderer:
   m_ObjectHideFlags: 0

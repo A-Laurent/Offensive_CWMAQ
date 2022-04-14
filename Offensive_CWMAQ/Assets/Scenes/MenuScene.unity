@@ -605,20 +605,18 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "Vous \xEAtes un jeune soldat d\xE9ploy\xE9 afin de contenir une r\xE9volution
-    contre le pouvoir en place. Vous serez, lors de cette op\xE9ration, \xE9quip\xE9
-    d'une armure biom\xE9canique nouvelle g\xE9n\xE9ration et devrez faire face aux
-    r\xE9volutionnaires, eux \xE9quip\xE9s, d'armure de la g\xE9n\xE9ration pr\xE9c\xE9dente.
-    Pour faire face \xE0 cette crise, vous devrez vous entrainer \xE0 \u0153uvrer
-    seul contre 99 programmes humano\xEFdes et \xEAtre le dernier survivant lors
-    de cette simulation. Je vous souhaite bon courage jeune soldat. Nous esp\xE9rons
-    vous savoir pr\xEAts d'ici peu."
+  m_Text: "You are a young soldier deployed to contain a revolution. You will, during
+    this operation, wear a new generation of biomecanical armor and you will have
+    to face the revolutionaries. They will hold the wear generation of your armor.
+    To deal with this crisis, you need to be trained alone against 99 humanoid programs
+    and be the last one standing up. Good Luck young soldier. We hope to see you
+    ready soon. \r\n\r\n"
 --- !u!222 &391900786
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1991,7 +1989,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "Puisse le sort vous \xEAtre favorable"
+  m_Text: May destiny favor you
 --- !u!222 &1080032292
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2385,11 +2383,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayButton: {fileID: 767481543}
-  QuitButton: {fileID: 1400419694}
   Credits: {fileID: 490430728}
+  SynopsisMenuBTN: {fileID: 1241874835}
+  QuitButton: {fileID: 1400419694}
   Map1: {fileID: 1481201075}
   Map2: {fileID: 1480204469}
-  SynopsisMenuBTN: {fileID: 1241874835}
   ReturnBTN: {fileID: 894579762}
   Head: {fileID: 770747107}
   Body: {fileID: 391900783}

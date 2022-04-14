@@ -13,8 +13,6 @@ public class SpawnPlayer : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Je suis un pute si ça fonctionne pas");
-
         posX = Random.Range(50, 950);
         posZ = Random.Range(10, 450);
 

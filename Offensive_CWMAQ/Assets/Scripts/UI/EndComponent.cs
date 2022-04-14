@@ -9,7 +9,7 @@ public class EndComponent : MonoBehaviour
     private GameObject GameMaster;
 
     //Need Canva to acces the button manager
-    public GameObject EndObj;
+    //public GameObject EndObj;
 
     //All canvas to desactivate if games end
 
@@ -92,7 +92,7 @@ public class EndComponent : MonoBehaviour
                     Time.timeScale = 0f;
 
                 //if player hit GoCreditButton or ReturnMenuButton, unfreeze game
-                if (EndObj.GetComponent<ButtonManager>().CanResetTimeScale)
+                if (GetComponent<ButtonManager>().CanResetTimeScale)
                     Time.timeScale = 1f;
             }
                 
@@ -115,7 +115,7 @@ public class EndComponent : MonoBehaviour
                     Time.timeScale = 0f;
 
                 //if player hit GoCreditButton or ReturnMenuButton, unfreeze game
-                if (EndObj.GetComponent<ButtonManager>().CanResetTimeScale)
+                if (GetComponent<ButtonManager>().CanResetTimeScale)
                     Time.timeScale = 1f;
             }
                 

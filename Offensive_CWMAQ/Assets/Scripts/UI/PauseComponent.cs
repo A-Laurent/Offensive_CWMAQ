@@ -12,6 +12,8 @@ public class PauseComponent : MonoBehaviour
     public GameObject Player;
     public GameObject GameMaster;
 
+    public GameObject EndObj;
+
     //Take EventSystem to manage the controller
     public EventSystem M_EventSystem;
 
@@ -31,15 +33,15 @@ public class PauseComponent : MonoBehaviour
     {
         if (Input.GetButton("Cancel") && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)
         {
+
             //if we hit Cancel (escape / B) and the game is not ended
             //Set Selected gameobject to Resume(controller)
             M_EventSystem.SetSelectedGameObject(ResumeBTN);
            
             IsMenu = true;
-            
+
             //freeze game
             Time.timeScale = 0f;
-
         }
 
         if (IsMenu && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)
@@ -53,6 +55,9 @@ public class PauseComponent : MonoBehaviour
             PauseText.SetActive(true);
             ResumeBTN.SetActive(true);
             QUITBtn.SetActive(true);
+
+            if (EndObj.GetComponent<ButtonManager>().CanResetTimeScale)
+                Time.timeScale = 1f;
         }
 
         if (!IsMenu && !GameMaster.GetComponent<GameMaster>().IsPlayerDead && !GameMaster.GetComponent<GameMaster>().IsPlayerWin)

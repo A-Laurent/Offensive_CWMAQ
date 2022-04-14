@@ -11,22 +11,19 @@ public class Movement : MonoBehaviour
     public float RunSpeed = 9.0f;
     public float JumpSpeed = 6.0f;
     public float Gravity = 20.0f;
-    private float nextPlay;
-    private float delay;
     public float delayBetweenStep;
-
     public bool CanMove = true;
+    private float delay;
 
-
-
+    //GameMaster
     public GameObject GameMaster;
 
-    
+    //CharacterController
+    CharacterController cc;
 
-    CharacterController Cc;
+    Vector3 deplacements;
 
-    Vector3 Deplacements;
-
+    //Animation
     public Animator Anim;
 
     //Camera 
@@ -37,7 +34,7 @@ public class Movement : MonoBehaviour
         //suppr cursor
         Cursor.visible = false;
         //Get Charactere controler component
-        Cc = GetComponent<CharacterController>();
+        cc = GetComponent<CharacterController>();
         delay = delayBetweenStep;
     }
 
@@ -45,7 +42,6 @@ public class Movement : MonoBehaviour
     {
         if(CanMove)
             Movements();
-
     }
 
     private void Movements()
@@ -58,7 +54,7 @@ public class Movement : MonoBehaviour
         float speedX = Input.GetAxis("Horizontal");
 
         //The jumping variables
-        float speedY = Deplacements.y;
+        float speedY = deplacements.y;
 
         //The sprint
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LJoyStickClick")) 
@@ -78,25 +74,25 @@ public class Movement : MonoBehaviour
             Anim.SetBool("WalkFr", true);
         }
 
-        Deplacements = z * speedZ + x * speedX;
+        deplacements = z * speedZ + x * speedX;
 
         //The jump
-        if (Input.GetButton("Jump") && Cc.isGrounded||Input.GetButtonDown("ButtonA") &&Cc.isGrounded)
+        if (Input.GetButton("Jump") && cc.isGrounded||Input.GetButtonDown("ButtonA") &&cc.isGrounded)
         {
             Anim.SetBool("WalkFr", false);
             Anim.SetBool("Jump", true);
-            Deplacements.y = JumpSpeed;
+            deplacements.y = JumpSpeed;
         }
         else
         {
-            Deplacements.y = speedY;
+            deplacements.y = speedY;
         }
 
-        if (!Cc.isGrounded)
+        if (!cc.isGrounded)
         {
             Anim.SetBool("Jump", false);
             //Adding gravity
-            Deplacements.y -= Gravity * Time.deltaTime;
+            deplacements.y -= Gravity * Time.deltaTime;
         }
 
         //Animations
@@ -131,6 +127,6 @@ public class Movement : MonoBehaviour
             Anim.SetBool("WalkFr", false);
         }
         //Finale define where the player should go
-        Cc.Move(Deplacements * Time.deltaTime);
+        cc.Move(deplacements * Time.deltaTime);
     }
 }

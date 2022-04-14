@@ -5,27 +5,27 @@ using UnityEngine;
 public class SpawnItem : MonoBehaviour
 {
     int Items;
-    private GameObject[] Spawners;
+    private GameObject[] spawners;
     public GameObject MedKitprefab;
     public GameObject Ammoprefab;
     void Start()
     {
         int i = 0;
         //I'll take all the position of my empty that I place
-        Spawners = GameObject.FindGameObjectsWithTag("ItemPos");
-        foreach (GameObject spawner in Spawners)
+        spawners = GameObject.FindGameObjectsWithTag("ItemPos");
+        foreach (GameObject spawner in spawners)
         {
             //Give them a rand with an Ammo and a Medkit
             Items = Random.Range(1, 3);
             //Them Instantiate them
             if (Items == 1)
             {
-                Instantiate(MedKitprefab, Spawners[i].transform.position, Quaternion.identity);
+                Instantiate(MedKitprefab, spawners[i].transform.position, Quaternion.identity);
             }
 
             if (Items == 2)
             {
-                Instantiate(Ammoprefab, Spawners[i].transform.position, Quaternion.identity);
+                Instantiate(Ammoprefab, spawners[i].transform.position, Quaternion.identity);
             }
 
             i += 1;

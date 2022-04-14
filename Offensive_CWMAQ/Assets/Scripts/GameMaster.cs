@@ -18,7 +18,7 @@ public class GameMaster : MonoBehaviour
     public Text RankText;
     public Text KillsText;
 
-    public GameObject[] playerAlive;
+    public GameObject[] PlayerAlive;
 
     void Update()
     {
@@ -34,14 +34,14 @@ public class GameMaster : MonoBehaviour
             
         //Get array of all obj that had enemy tag, if player is the last of the array, isPlayerWin = true
 
-        playerAlive = GameObject.FindGameObjectsWithTag("Enemy");
-        if(playerAlive.Length == 1 && IsPlayerDead==false)
+        PlayerAlive = GameObject.FindGameObjectsWithTag("Enemy");
+        if(PlayerAlive.Length == 1 && IsPlayerDead==false)
         {
             IsPlayerWin = true;
         }
 
         //Print NB_kills and rank on UI
         KillsText.text = "Kills : " + Kills.ToString();
-        RankText.text = playerAlive.Length.ToString() + "/100";
+        RankText.text = PlayerAlive.Length.ToString() + "/100";
     }
 }
